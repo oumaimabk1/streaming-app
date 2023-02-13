@@ -1,12 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Landing from './pages/Landing'
+import { StyledEngineProvider } from '@mui/material/styles';
+import Stepper from './components/stepper';
+import RegistrationStepper from './pages/Registration';
 function App() {
   return (
-    <>
-      <Landing />
-    </>
+    <div className='App'>
+      <RegistrationStepper />
+    </div>
   );
 }
 
