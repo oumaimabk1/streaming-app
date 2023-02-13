@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema(
 
 // fonction 'pre' sera appelée avant de sauvegarder un nouvel utilisateur dans la base de données.
 //garantit que le mot de passe de l'utilisateur est sécurisé en le haschant avec bcrypt avant de le sauvegarder dans la bdd.
-UserSchema.pre("save", async function (next: any): Promise<any> { // A corriger 
+UserSchema.pre("save", async function (next: any): Promise<any> { 
   let user = this as UserDocument;
 
   // only hash the password if it has been modified (or is new)
