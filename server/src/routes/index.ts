@@ -9,6 +9,12 @@ import {
 import { validateRequest, requiresUser } from "../middleware";
 import { createUserSchema, createUserSessionSchema } from "../shema/user.shema";
 
+const {
+  signUpController,
+  resetPasswordRequestController,
+  resetPasswordController,
+} = require("../controller/auth.controller");
+
 
 export default function (app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
@@ -30,3 +36,11 @@ export default function (app: Express) {
   // Logout
   app.delete("/api/sessions", requiresUser, invalidateUserSessionHandler);
 }
+
+const router = require("express").Router();
+
+router.post("/auth/signup", signUpController);
+router.post("/auth/requestResetPassword", resetPasswordRequestController);
+router.post("/auth/resetPassword", resetPasswordController);
+
+module.exports = router;
