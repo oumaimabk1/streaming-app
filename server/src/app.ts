@@ -3,7 +3,7 @@
 import express from "express";
 import config from "config";
 import mongoose from "mongoose";
-import routes from "./routes/index";
+import routes from "./routes";
 
 
 const port = config.get("port") as number;
