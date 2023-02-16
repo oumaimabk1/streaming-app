@@ -9,6 +9,8 @@ import {
   findSessions,
 } from "../service/session.service";
 import { sign } from "../utils/jwt.utils";
+import axios from "axios";
+import Genres from "../model/Genre.model";
 
 export async function createUserSessionHandler(req: Request, res: Response) {
   // validate the email and password
@@ -31,7 +33,7 @@ export async function createUserSessionHandler(req: Request, res: Response) {
   const refreshToken = sign(session, {
     expiresIn: config.get("refreshTokenTtl"), // 1 year
   });
-
+  
   // send refresh & access token back
   return res.send({ accessToken, refreshToken });
 }
@@ -51,6 +53,6 @@ export async function getUserSessionsHandler(req: Request, res: Response) {
   const userId = get(req, "user._id");
 
   const sessions = await findSessions({ user: userId, valid: true });
-
+  
   return res.send(sessions);
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
     Flex,
     Heading,
@@ -17,7 +17,6 @@ import {
     CircularProgress
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
-import { connect } from "react-redux";
 import { Link as L } from "react-router-dom";
 
 const CFaUserAlt = chakra(FaUserAlt);
@@ -121,6 +120,7 @@ const Login = (props: any) => {
                                 colorScheme="teal"
                                 width="full"
                                 disabled={loading}
+                                onClick={handleSubmit}
                             >
                                 Login
                                 {loading && (<CircularProgress size={30} color='secondary' />)}

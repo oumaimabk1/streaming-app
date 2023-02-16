@@ -1,22 +1,8 @@
-import { Box, Button, chakra, Flex, FormControl, FormLabel, Input, InputGroup, InputLeftElement, InputRightElement, Stack } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Button, chakra, Flex, FormControl, Input, InputGroup, InputLeftElement, Stack } from '@chakra-ui/react';
 import { FaUserAlt, FaLock } from "react-icons/fa";
 
 const CFaUserAlt = chakra(FaUserAlt);
-const CFaLock = chakra(FaLock);
 
-type Step2Props = {
-  formData: {
-    Cardname: string
-    number: string
-    date: string
-    CVV: string
-    
-  };
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleNext: () => void;
-  handleBack: () => void;
-};
 
 export const Step3 = ({ formData, handleChange, handleSubmit, handleBack }: any) => {
 

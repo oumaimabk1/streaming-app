@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
     Flex,
     Heading,
@@ -11,11 +10,7 @@ import {
     Box,
     Text,
     FormControl,
-    FormHelperText,
-    Link,
-    InputRightElement,
-    CircularProgress
-} from "@chakra-ui/react";
+    Link} from "@chakra-ui/react";
 import { FaUserAlt } from "react-icons/fa";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link as L } from "react-router-dom";

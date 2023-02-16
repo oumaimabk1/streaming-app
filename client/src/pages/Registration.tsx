@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, CircularProgress, CircularProgressLabel, Flex, Heading, Stack ,Link} from '@chakra-ui/react';
+import { Avatar, Box, CircularProgress, CircularProgressLabel, Flex, Heading, Stack ,Link} from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //import { useHistory } from 'react-router-dom';
@@ -8,11 +8,9 @@ import { Step1 } from '../components/Step1';
 import { Step2 } from '../components/Step2';
 import { Step3 } from '../components/Step3';
 
-type RegistrationFormProps = {
-    className?: string;
-};
 
-export const RegistrationForm = ({ className }: RegistrationFormProps) => {
+
+const RegistrationForm = () => {
     const dispatch = useDispatch();
     //const history = useHistory();
 
@@ -93,3 +91,5 @@ export const RegistrationForm = ({ className }: RegistrationFormProps) => {
     </Flex>
     );
 };
+
+export default  RegistrationForm;
