@@ -6,10 +6,7 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 dotenv.config();
 import routes from "./src/routes/index.js";
-
 import crypto from 'crypto';
-const secretKey = crypto.createHash('sha512').update('secret_key').digest('hex');
-
 
 
 const app = express();
@@ -34,3 +31,5 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
   console.log({ err });
   process.exit(1);
 });
+
+const secretKey = crypto.createHash('sha512').update('secret_key').digest('hex');
