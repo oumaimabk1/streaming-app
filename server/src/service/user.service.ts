@@ -35,3 +35,4 @@ export async function validatePassword({
 
   return omit(user.toJSON(), "password");
 }
+

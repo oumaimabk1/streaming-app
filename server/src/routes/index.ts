@@ -9,11 +9,11 @@ import {
 import { validateRequest, requiresUser } from "../middleware";
 import { createUserSchema, createUserSessionSchema } from "../shema/user.shema";
 
-const {
+/* const {
   signUpController,
   resetPasswordRequestController,
   resetPasswordController,
-} = require("../controller/auth.controller");
+} = require("../controller/auth.controller"); */
 
 
 export default function (app: Express) {
@@ -37,10 +37,10 @@ export default function (app: Express) {
   app.delete("/api/sessions", requiresUser, invalidateUserSessionHandler);
 }
 
-const router = require("express").Router();
+/* const router = require("express").Router();
 
 router.post("/auth/signup", signUpController);
 router.post("/auth/requestResetPassword", resetPasswordRequestController);
 router.post("/auth/resetPassword", resetPasswordController);
 
-module.exports = router;
+module.exports = router; */

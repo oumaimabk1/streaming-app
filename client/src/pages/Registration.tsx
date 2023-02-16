@@ -1,156 +1,95 @@
-import React, { useState } from "react";
-import { createStyles, makeStyles, Theme } from "@mui/material/styles";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import Container from "@mui/material/Container";
+import { Avatar, Box, Button, CircularProgress, CircularProgressLabel, Flex, Heading, Stack ,Link} from '@chakra-ui/react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+//import { useHistory } from 'react-router-dom';
+import { setFormData, submitForm } from '../redux/actions/formActions';
+import { Link as L } from "react-router-dom";
+import { Step1 } from '../components/Step1';
+import { Step2 } from '../components/Step2';
+import { Step3 } from '../components/Step3';
 
+type RegistrationFormProps = {
+    className?: string;
+};
 
+export const RegistrationForm = ({ className }: RegistrationFormProps) => {
+    const dispatch = useDispatch();
+    //const history = useHistory();
 
-function getSteps(): string[] {
-  return ["Enter Information", "Choose Plan", "Payment"];
-}
+    const [step, setStep] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
 
-function getStepContent(stepIndex: number) {
-  switch (stepIndex) {
-    case 0:
-      return (
-        <div>
-          <TextField
-            id="standard-basic"
-            label="Name"
-            margin="normal"
-            fullWidth
-          />
-          <TextField
-            id="standard-basic"
-            label="Email"
-            margin="normal"
-            fullWidth
-          />
-          <TextField
-            id="standard-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            margin="normal"
-            fullWidth
-          />
-          <TextField
-            id="standard-password-input"
-            label="Confirm Password"
-            type="password"
-            autoComplete="current-password"
-            margin="normal"
-            fullWidth
-          />
-        </div>
-      );
-    case 1:
-      return (
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Choose Plan</FormLabel>
-          <RadioGroup aria-label="plan">
-            <FormControlLabel value="free" control={<Radio />} label="Free" />
-            <FormControlLabel
-              value="premium"
-              control={<Radio />}
-              label="Premium"
-            />
-          </RadioGroup>
-        </FormControl>
-      );
-    case 2:
-      return (
-        <div>
-          <TextField
-            id="standard-basic"
-            label="Card Number"
-            margin="normal"
-            fullWidth
-          />
-          <TextField
-            id="standard-basic"
-            label="Expiration Date"
-            margin="normal"
-            fullWidth
-          />
-          <TextField
-            id="standard-basic"
-            label="CVC"
-            margin="normal"
-            fullWidth
-          />
-        </div>
-      );
-    default:
-      return "Unknown stepIndex";
-  }
-}
+    const formData = useSelector((state: any) => state.registration.formData);
+   
+    const handleBack = () => {
+        setStep((prevStep) => prevStep - 1);
+    };
 
-export default function RegistrationStepper() {
+    const handleNext = () => {
+        console.log(formData)
+        setStep((prevStep) => prevStep + 1);
+    };
 
-  const [activeStep, setActiveStep] = useState(0);
-  const steps = getSteps();
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        const updatedFormData: any = { ...formData, [name]: value };
+        dispatch(setFormData(updatedFormData));
+    };
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        setIsLoading(true);
+        event.preventDefault();
+        try {
+            await dispatch(submitForm(formData));;
+            console.log('Form submitted successfully!');
+        } catch (error) {
+            console.error(error);
+        }
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+        setIsLoading(false);
+        //history.push('/success');
+    };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
-  return (
-  <div className="flex flex-col justify-center">
-    <h1 className="justify-items-center">Registration</h1>
-    <Container maxWidth="sm" >
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <div>
-        {activeStep === steps.length ? (
-          <div>
-            <Typography >
-              All steps completed
-            </Typography>
-            <Button onClick={handleReset}>Reset</Button>
-          </div>
-        ) : (
-          <div>
-            <Typography >
-              {getStepContent(activeStep)}
-            </Typography>
-            <div>
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-              >
-                Back
-              </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
-    </Container>
-    </div>
-  );
-}
+    return (
+        <Flex
+        flexDirection="column"
+        width="100wh"
+        height="100vh"
+        backgroundColor="gray.200"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Stack
+          flexDir="column"
+          mb="2"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Avatar bg="teal.500" />
+          <Heading color="teal.400">Register</Heading>
+          <Box minW={{ base: "90%", md: "468px" }}>
+           
+            {step === 1 && <Step1 formData={formData} handleNext={handleNext} handleChange={handleChange} />}
+            {step === 2 && <Step2 formData={formData} handleBack={handleBack} handleNext={handleNext} handleChange={handleChange} />}
+            {step === 3 && <Step3 formData={formData} handleBack={handleBack} handleSubmit={handleSubmit} />}
+            {isLoading && (
+                <Flex position="fixed" top={0} left={0} right={0} bottom={0} alignItems="center" justifyContent="center">
+                    <CircularProgress isIndeterminate color="blue.500" size="48px">
+                        <CircularProgressLabel>Submitting</CircularProgressLabel>
+                    </CircularProgress>
+                </Flex>
+            )}
+        
+        </Box>
+      </Stack>
+      <Box>
+        already signed up?{" "}
+        <L to='/login' >
+          <Link color="teal.500">
+          Login
+          </Link>
+          
+        </L>
+      </Box>
+    </Flex>
+    );
+};
