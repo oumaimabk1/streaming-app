@@ -5,13 +5,9 @@ import responseHandler from "../handlers/response.handler.js";
 const signup = async (req, res) => {
   try {
     const { username, password, displayName } = req.body;
-
     const checkUser = await userModel.findOne({ username });
-
     if (checkUser) return responseHandler.badrequest(res, "username already used");
-
     const user = new userModel();
-
     user.displayName = displayName;
     user.username = username;
     user.setPassword(password);
@@ -24,13 +20,13 @@ const signup = async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    responseHandler.created(res, {
+    res.send({
       token,
       ...user._doc,
       id: user.id
-    });
-  } catch {
-    responseHandler.error(res);
+    })
+  } catch (e) {
+    res.send(e)
   }
 };
 
@@ -52,14 +48,14 @@ const signin = async (req, res) => {
 
     user.password = undefined;
     user.salt = undefined;
-
-    responseHandler.created(res, {
+    res.send({
       token,
       ...user._doc,
       id: user.id
-    });
-  } catch {
-    responseHandler.error(res);
+    })
+
+  } catch (e) {
+    res.send(e)
   }
 };
 

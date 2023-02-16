@@ -5,7 +5,7 @@ import http from "http";
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 dotenv.config();
-import routes from "./src/routes/index.js";
+import userroutes from "./src/routes/user.route.js";
 import crypto from 'crypto';
 
 
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use("/api/v1", routes);
+app.use("/api/v1", userroutes);
 
 const port = process.env.PORT || 5000;
 
