@@ -72,12 +72,7 @@ web_modules/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
+
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -116,15 +111,6 @@ dist
 # DynamoDB Local files
 .dynamodb/
 
-# TernJS port file
-.tern-port
 
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
 
-# yarn v2
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
+
