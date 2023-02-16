@@ -3,8 +3,14 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import http from "http";
 import mongoose from "mongoose";
-import "dotenv/config";
+import dotenv from 'dotenv';
+dotenv.config();
 import routes from "./src/routes/index.js";
+
+import crypto from 'crypto';
+const secretKey = crypto.createHash('sha512').update('secret_key').digest('hex');
+
+
 
 const app = express();
 
