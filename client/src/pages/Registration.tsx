@@ -8,8 +8,6 @@ import { Step1 } from '../components/Step1';
 import { Step2 } from '../components/Step2';
 import { Step3 } from '../components/Step3';
 
-
-
 const RegistrationForm = () => {
     const dispatch = useDispatch();
     //const history = useHistory();

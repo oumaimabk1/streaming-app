@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Movies from './pages/Movies';
 import RegistrationForm from './pages/Registration';
 import Search from './pages/Search';
+import ResetPassord from './pages/resetPassord';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<RegistrationForm />}></Route>
           <Route path="/login" element={<Login />} ></Route>
           <Route path="/forgotPassword" element={<ForgotPassword />} ></Route>
+          <Route path="/ResetPassord" element={<ResetPassord />} ></Route>
           <Route path="/Home" element={<Home />}></Route>
           <Route path="/Search" element={<Search />}></Route>
           <Route path="/Movies" element={<Movies />}></Route>

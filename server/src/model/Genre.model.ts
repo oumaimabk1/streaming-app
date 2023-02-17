@@ -12,8 +12,7 @@ export interface GenreDocument extends mongoose.Document {
 
 const GenresSchema = new mongoose.Schema(
     {
- 
-        id: Number,
+       id: Number,
        name:String,
     },
     { timestamps: true }

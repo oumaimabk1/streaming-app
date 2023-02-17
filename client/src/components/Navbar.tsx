@@ -20,7 +20,8 @@ const Links = ['Home', 'Movies', 'Search'];
 
 const NavLink = ({ children }: { children: ReactNode }, key: string) => (
 
-    <Link
+    <Link  
+        key={key}
         px={2}
         py={1}
         rounded={'md'}
@@ -32,7 +33,6 @@ const NavLink = ({ children }: { children: ReactNode }, key: string) => (
         {children}
 
     </Link>
-
 );
 
 export default function Navbar() {

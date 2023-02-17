@@ -1,3 +1,5 @@
+//https://api.themoviedb.org/3/movie/popular?api_key=6cc1df6659017d51dec12febc2690279&language=en-US&page=1
+
 import {
     Flex,
     Heading,
@@ -18,7 +20,7 @@ import { Link as L } from "react-router-dom";
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaBack = chakra(AiOutlineArrowLeft);
 
-const ForgotPassword = (props: any) => {
+const ResetPassword = (props: any) => {
 
     return (
         <Flex
@@ -35,9 +37,6 @@ const ForgotPassword = (props: any) => {
                 justifyContent="center"
                 alignItems="center"
             >
-
-                <Heading color="black.400">FORGOT PASSWORD ?</Heading>
-                <Text fontSize='xl'>No worries, we'll send you reset instructions </Text>
                 <Box minW={{ base: "90%", md: "468px" }}>
                     <form>
                         <Stack
@@ -56,7 +55,26 @@ const ForgotPassword = (props: any) => {
                                     />
                                 </InputGroup>
                             </FormControl>
-
+                            <FormControl>
+                                <InputGroup>
+                                    <InputLeftElement
+                                        pointerEvents="none"
+                                        children={<CFaUserAlt color="gray.300" />}
+                                    />
+                                    <Input type="password" placeholder="new password"
+                                    />
+                                </InputGroup>
+                            </FormControl>
+                            <FormControl>
+                                <InputGroup>
+                                    <InputLeftElement
+                                        pointerEvents="none"
+                                        children={<CFaUserAlt color="gray.300" />}
+                                    />
+                                    <Input type="password" placeholder="confirm new password"
+                                    />
+                                </InputGroup>
+                            </FormControl>
                             <Button
                                 borderRadius={0}
                                 type="submit"
@@ -64,7 +82,7 @@ const ForgotPassword = (props: any) => {
                                 colorScheme="teal"
                                 width="full"
                             >
-                                Reset password
+                                Save password
                             </Button>
                         </Stack>
                     </form>
@@ -84,4 +102,4 @@ const ForgotPassword = (props: any) => {
 };
 
 
-export default ForgotPassword;
+export default ResetPassword;
