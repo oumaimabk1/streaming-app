@@ -8,7 +8,7 @@
 
 ### With a clever combination of:
 
-    * [Tailwind] (https://tailwindcss.com)
+    * [Tailwind](https://tailwindcss.com)
     * [React] (https://reactjs.org)
     * [Typescript] (https://www.typescriptlang.org)
     * [Node.js] (https://nodejs.org/en/)
