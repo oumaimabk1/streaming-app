@@ -19,9 +19,9 @@ export const Search = () => {
             <HStack
                 margin="4"
             >
-                <Button btnText="Movies"  />
-                <Button btnText="TV"  />
-                <Button btnText="People"  />
+                <Button isActive={true} btnText="Movies"  />
+                <Button isActive={false} btnText="TV"  />
+                <Button isActive={false} btnText="People"  />
             </HStack>
 
             <Input
