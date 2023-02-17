@@ -3,14 +3,14 @@ import modelOptions from "./model.options.js";
 import crypto from "crypto";
 
 const userSchema = new mongoose.Schema({
-  username: {
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
     type: String,
     required: true,
     unique: true
-  },
-  displayName: {
-    type: String,
-    required: true
   },
   password: {
     type: String,
@@ -20,8 +20,41 @@ const userSchema = new mongoose.Schema({
   salt: {
     type: String,
     select: false
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  city: {
+    type: String,
+    required: true
+  },
+  state: {
+    type: String,
+    required: true
+  },
+  zip: {
+    type: String,
+    required: true
+  },
+  cardName: {
+    type: String,
+    required: true
+  },
+  cardNumber: {
+    type: String,
+    required: true
+  },
+  expiry: {
+    type: String,
+    required: true
+  },
+  cvv: {
+    type: String,
+    required: true
   }
 }, modelOptions);
+
 
 userSchema.methods.setPassword = function (password) {
   this.salt = crypto.randomBytes(16).toString("hex");

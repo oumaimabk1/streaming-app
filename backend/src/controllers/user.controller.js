@@ -3,14 +3,26 @@ import jsonwebtoken from "jsonwebtoken";
 import responseHandler from "../handlers/response.handler.js";
 
 const signup = async (req, res) => {
+  console.log(req.body)
   try {
-    const { username, password, displayName } = req.body;
-    const checkUser = await userModel.findOne({ username });
-    if (checkUser) return responseHandler.badrequest(res, "username already used");
+    console.log(req.body)
+    const { name, email, password, address, city, state, zip, cardName, cardNumber, expiry, cvv } = req.body;
+    console.log(req.body)
+
+    const checkUser = await userModel.findOne({ email });
+    if (checkUser) return responseHandler.badrequest(res, "Email address already used");
     const user = new userModel();
-    user.displayName = displayName;
-    user.username = username;
+    user.name = name;
+    user.email = email;
     user.setPassword(password);
+    user.address = address;
+    user.city = city; 
+    user.state = state;
+    user.zip = zip;
+    user.cardName = cardName;
+    user.cardNumber = cardNumber;
+    user.expiry =  expiry;
+    user.cvv = cvv;
 
     await user.save();
 

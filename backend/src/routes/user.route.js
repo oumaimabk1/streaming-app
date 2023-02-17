@@ -10,12 +10,15 @@ const router = express.Router();
 
 router.post(
   "/signup",
-  body("username")
-    .exists().withMessage("username is required")
-    .isLength({ min: 8 }).withMessage("username minimum 8 characters")
+  body("name")
+    .exists().withMessage("name is required")
+    .isLength({ min: 8 }).withMessage("name minimum 8 characters"),
+  body("email")
+    .exists().withMessage("email is required")
+    .isEmail().withMessage("invalid email address")
     .custom(async value => {
-      const user = await userModel.findOne({ username: value });
-      if (user) return Promise.reject("username already used");
+      const user = await userModel.findOne({ email: value });
+      if (user) return Promise.reject("email already used");
     }),
   body("password")
     .exists().withMessage("password is required")
@@ -27,9 +30,22 @@ router.post(
       if (value !== req.body.password) throw new Error("confirmPassword not match");
       return true;
     }),
-  body("displayName")
-    .exists().withMessage("displayName is required")
-    .isLength({ min: 8 }).withMessage("displayName minimum 8 characters"),
+  body("address")
+    .exists().withMessage("address is required"),
+  body("city")
+    .exists().withMessage("city is required"),
+  body("state")
+    .exists().withMessage("state is required"),
+  body("zip")
+    .exists().withMessage("zip is required"),
+  body("cardName")
+    .exists().withMessage("cardName is required"),
+  body("cardNumber")
+    .exists().withMessage("cardNumber is required"),
+  body("expiry")
+    .exists().withMessage("expiry is required"),
+  body("cvv")
+    .exists().withMessage("cvv is required"),
   requestHandler.validate,
   userController.signup
 );
