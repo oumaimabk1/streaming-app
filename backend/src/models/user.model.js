@@ -80,6 +80,6 @@ userSchema.methods.validPassword = function (password) {
   return this.password === hash;
 };
 
-const userModel = mongoose.model("User", userSchema);
+const userModel = mongoose.model("test", userSchema);
 
 export default userModel;
