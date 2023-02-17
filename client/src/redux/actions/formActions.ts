@@ -34,7 +34,6 @@ console.log(formData)
         const errorData = await response.json();
         throw new Error(errorData.message);
       }
-
       // Dispatch an action to reset the form data
       dispatch(resetFormData());
 
