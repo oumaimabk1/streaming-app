@@ -10,6 +10,9 @@
 
     * [Tailwind] (https://tailwindcss.com)
     * [React] (https://reactjs.org)
+    * [Typescript] (https://www.typescriptlang.org)
     * [Node.js] (https://nodejs.org/en/)
     * [MongoDB] (https://www.mongodb.com)
     * [Express] (https://expressjs.com/)
+
+### We had Nico as a front-end developer, and Oumaima and Zineb as back-end developers.
