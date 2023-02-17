@@ -1,6 +1,7 @@
 import userModel from "../models/user.model.js";
 import jsonwebtoken from "jsonwebtoken";
 import responseHandler from "../handlers/response.handler.js";
+import sendEmail from "../middlewares/sendEmail.middleware.js";
 
 const signup = async (req, res) => {
   try {
@@ -70,13 +71,19 @@ const signin = async (req, res) => {
 
 const updatePassword = async (req, res) => {
   try {
-    const { password, newPassword } = req.body;
+    const { newPassword, confirmNewPassword  } = req.body;
 
-    const user = await userModel.findById(req.user.id).select("password id salt");
+    // check that passwords match
+    if (newPassword !== confirmNewPassword) {
+      return responseHandler.badrequest(res, 'Passwords do not match');
+    }
+
+    const user = await userModel.findById(req.user.id).select("id salt");
 
     if (!user) return responseHandler.unauthorize(res);
 
-    if (!user.validPassword(password)) return responseHandler.badrequest(res, "Wrong password");
+    // Check if the email has been sent before allowing the user to update the password
+    if (!user.emailSent) return responseHandler.badrequest(res, "Email not sent");
 
     user.setPassword(newPassword);
 

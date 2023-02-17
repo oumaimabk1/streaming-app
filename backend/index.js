@@ -8,7 +8,6 @@ dotenv.config();
 import userroutes from "./src/routes/user.route.js";
 import crypto from 'crypto';
 
-
 const app = express();
 
 app.use(cors());

@@ -1,10 +1,10 @@
 import express from "express";
 import { body } from "express-validator";
-
 import userController from "../controllers/user.controller.js";
 import requestHandler from "../handlers/request.handler.js";
 import userModel from "../models/user.model.js";
 import tokenMiddleware from "../middlewares/token.middleware.js";
+import sendEmail from "../middlewares/sendEmail.middleware.js";
 
 const router = express.Router();
 
@@ -64,9 +64,7 @@ router.post(
 router.put(
   "/update-password",
   tokenMiddleware.auth,
-  body("password")
-    .exists().withMessage("password is required")
-    .isLength({ min: 8 }).withMessage("password minimum 8 characters"),
+  sendEmail,
   body("newPassword")
     .exists().withMessage("newPassword is required")
     .isLength({ min: 8 }).withMessage("newPassword minimum 8 characters"),
