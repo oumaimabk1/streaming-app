@@ -3,6 +3,8 @@ import jsonwebtoken from "jsonwebtoken";
 import responseHandler from "../handlers/response.handler.js";
 import sendEmail from "../middlewares/sendEmail.middleware.js";
 
+
+///////////////////////////////////////////SIGN UP ////////////////////////////////////////////////
 const signup = async (req, res) => {
   try {
     const { name, email, password, address, city, state, zip, cardName, cardNumber, expiry, cvv } = req.body;
@@ -40,6 +42,8 @@ const signup = async (req, res) => {
   }
 };
 
+///////////////////////////////////////////SIGN IN ////////////////////////////////////////////////
+
 const signin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -69,16 +73,84 @@ const signin = async (req, res) => {
   }
 };
 
+/////////////////////////////////////////// RESET PASSWORD with TOKEN ////////////////////////////////////////////////
+/*
+const resetPasswordLink = "https://example.com/reset-password";
+
+const resetPasswordEmail= async (req, res) => {
+  try {
+    const {email} = req.body;
+
+    const user = await userModel.findOne({ email }).select("email id");
+
+    if (!user) {
+      return responseHandler.badrequest(res, "The email is not registered with us");
+    }
+
+   const token = jsonwebtoken.sign(
+     { data: user.id },
+      process.env.TOKEN_SECRET,
+      { expiresIn: "1h" }
+   );
+
+   await userModel.updateOne(
+    { _id: user._id },
+    { resetPasswordToken: token, resetPasswordExpires: Date.now() + 3600000 }
+  );
+
+  const sent = await sendEmail(email, token, resetPasswordLink);
+
+  if (sent === "0") {
+    return responseHandler.error(res, "Failed to send email");
+  }
+
+  return responseHandler.success(res, "The reset password link has been sent to your email address");
+} catch (e) {
+console.log(e);
+return responseHandler.error(res, "Something goes wrong. Please try again");
+}
+};
+*/
+
+
+// no token 
+const resetPasswordLink = "https://example.com/reset-password";
+
+const resetPasswordEmail = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await userModel.findOne({ email }).select("email");
+
+    if (!user) {
+      return responseHandler.badrequest(res, "The email is not registered with us");
+    }
+
+    const sent = await sendEmail(email, resetPasswordLink);
+  
+    if (sent === "0") {
+      return responseHandler.error(res, "Failed to send email");
+    }
+
+    return responseHandler.success(res, "The reset password link has been sent to your email address");
+  } catch (e) {
+    console.log(e);
+    return responseHandler.error(res, "Something goes wrong. Please try again");
+  }
+};
+
+
+
 const updatePassword = async (req, res) => {
   try {
-    const { newPassword, confirmNewPassword  } = req.body;
+    const { email, newPassword, confirmNewPassword  } = req.body;
 
     // check that passwords match
     if (newPassword !== confirmNewPassword) {
       return responseHandler.badrequest(res, 'Passwords do not match');
     }
 
-    const user = await userModel.findById(req.user.id).select("id salt");
+    const user = await userModel.findOne({ email }).select("email id salt");
 
     if (!user) return responseHandler.unauthorize(res);
 
@@ -95,21 +167,12 @@ const updatePassword = async (req, res) => {
   }
 };
 
-const getInfo = async (req, res) => {
-  try {
-    const user = await userModel.findById(req.user.id);
-
-    if (!user) return responseHandler.notfound(res);
-
-    responseHandler.ok(res, user);
-  } catch {
-    responseHandler.error(res);
-  }
-};
 
 export default {
   signup,
   signin,
-  getInfo,
+  resetPasswordEmail,
   updatePassword
 };
+
+

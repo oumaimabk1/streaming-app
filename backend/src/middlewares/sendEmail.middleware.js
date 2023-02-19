@@ -4,8 +4,16 @@ import responseHandler from "../handlers/response.handler.js";
 
 
 const sendEmail = async (req, res, next) => {
-  const user = await userModel.findById(req.user.id).select("email name");
-  const { name, email } = user;
+
+  const { email } = req.body;
+  const user = await userModel.findOne({ email }).select("email name");
+
+  if (!user) {
+    return responseHandler.error(res, "User not found with provided email");
+  }
+
+  const { name } = user;
+  
   const resetPasswordLink = "https://example.com/reset-password";
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -14,14 +22,14 @@ const sendEmail = async (req, res, next) => {
         pass: process.env.MAIL_PASSWORD,
         },
   });
-  const message = {
+  const mailOptions = {
     from: process.env.MAIL_USERNAME,
     to: email,
-    subject: "Changement de mot de passe",
-    text: `Bonjour ${name},\n\nVous avez demandé un changement de mot de passe. Veuillez cliquer sur le lien ci-dessous pour continuer le processus de modification de mot de passe : ${resetPasswordLink}`,
+    subject: "Reset Password Link",
+    text:`Hello ${name},\n\nYou requested for reset password, kindly use this ${resetPasswordLink} to reset your password`,
   };
   try {
-    await transporter.sendMail(message);
+    await transporter.sendMail(mailOptions);
     next();
   } catch (error) {
     return responseHandler.error(res, "Failed to send email");

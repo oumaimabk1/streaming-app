@@ -61,10 +61,23 @@ router.post(
   userController.signin
 );
 
+router.post(
+  "/reset-password",
+  body("email")
+    .exists().withMessage("email is required"),
+  requestHandler.validate,
+  //tokenMiddleware.auth,
+  userController.resetPasswordEmail
+);
+
+
+
 router.put(
   "/update-password",
   tokenMiddleware.auth,
-  sendEmail,
+  userController.resetPasswordEmail,
+  body("email")
+    .exists().withMessage("email is required"),
   body("newPassword")
     .exists().withMessage("newPassword is required")
     .isLength({ min: 8 }).withMessage("newPassword minimum 8 characters"),
@@ -77,12 +90,6 @@ router.put(
     }),
   requestHandler.validate,
   userController.updatePassword
-);
-
-router.get(
-  "/info",
-  tokenMiddleware.auth,
-  userController.getInfo
 );
 
 
