@@ -1,7 +1,6 @@
 import MovieDocument from '../model/movie.model';
 import { Request, Response } from 'express';
 
-
 export async function getAllMovies(req: any, res: Response) {
 
         const page = parseInt(req.query.page) || 1;
