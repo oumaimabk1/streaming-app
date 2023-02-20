@@ -7,7 +7,7 @@ type ButtonProps = {
 const Button = ({btnText, isActive }: ButtonProps ) => {
 
     return (
-        <ChButton colorScheme='teal' variant={isActive ? "solid" : "ghost"}>{btnText}</ChButton>
+        <ChButton colorScheme='teal' variant={isActive ? "solid" : "outline"}>{btnText}</ChButton>
     );
 };
 
