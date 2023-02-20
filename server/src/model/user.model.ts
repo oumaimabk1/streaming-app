@@ -44,35 +44,27 @@ const UserSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      required: true
     },
     city: {
       type: String,
-      required: true
     },
     state: {
       type: String,
-      required: true
     },
     zip: {
       type: String,
-      required: true
     },
     cardName: {
       type: String,
-      required: true
     },
     cardNumber: {
       type: String,
-      required: true
     },
     expiry: {
       type: String,
-      required: true
     },
     cvv: {
       type: String,
-      required: true
     },
     resetPasswordToken: String,
     resetPasswordExpires: Date

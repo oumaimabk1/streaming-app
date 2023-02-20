@@ -1,4 +1,4 @@
-import { Button, chakra, FormControl, Input, InputGroup, InputLeftElement, InputRightElement, Stack } from '@chakra-ui/react';
+import { Button, chakra, FormControl, Input, InputGroup, InputLeftElement, InputRightElement, Stack ,useColorModeValue} from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaUserAlt, FaLock } from "react-icons/fa";
 
@@ -16,7 +16,7 @@ export const Step1 = ({ formData, handleChange, handleNext }: any) => {
             <Stack
               spacing={4}
               p="1rem"
-              backgroundColor="whiteAlpha.900"
+              backgroundColor={useColorModeValue("whiteAlpha.900", 'gray.800')}
               boxShadow="md"
             >
               <FormControl>
@@ -46,7 +46,7 @@ export const Step1 = ({ formData, handleChange, handleNext }: any) => {
                     color="gray.300"
                     children={<CFaLock color="gray.300" />}
                   />
-                <Input type={showPassword ? "text" : "password"} name="passsword" placeholder="Password" value={formData.passsword} onChange={handleChange} />
+                <Input type={showPassword ? "text" : "password"} name="password" placeholder="Password" value={formData.password} onChange={handleChange}/>
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>
                       {showPassword ? "Hide" : "Show"}

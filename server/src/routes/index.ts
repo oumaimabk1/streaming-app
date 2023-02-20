@@ -12,6 +12,20 @@ import axios from "axios";
 import Movies from "../model/movie.model";
 import { getAllMovies } from "../controller/movies.controller";
 
+import {
+  addFavorite,
+  getFavoritesByUser,
+  removeFavorite,
+} from "../controller/favorite.controller";
+
+import { addRating, 
+        getRatingsByUser,
+        getMovieRating,
+ } from "../controller/rating.controller";
+
+
+
+
 export default function (app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
 
@@ -65,5 +79,24 @@ export default function (app: Express) {
   
   //get all movies
   app.get("/api/getAllMovies", getAllMovies);
+
+  // Add a movie to favorites
+app.post("/api/favorites", addFavorite);
+
+// Get favorites by user id
+app.get("/api/favorites/:userId", getFavoritesByUser);
+
+// Remove a movie from favorites
+app.delete("/api/favorites", removeFavorite);
+
+// Add a movie rating
+app.post("/api/ratings", addRating);
+
+// Get ratings bu user
+app.get("/api/ratings/:userId", getRatingsByUser);
+
+
+// Get ratings for a movie
+app.get("/api/ratings/:movieId", getMovieRating);
 
 }
