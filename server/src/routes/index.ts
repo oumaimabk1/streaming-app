@@ -23,6 +23,7 @@ import { addRating,
         getMovieRating,
  } from "../controller/rating.controller";
 
+ import { searchMovies } from "../controller/search.controller";
 
 
 
@@ -98,5 +99,9 @@ app.get("/api/ratings/:userId", getRatingsByUser);
 
 // Get ratings for a movie
 app.get("/api/ratings/:movieId", getMovieRating);
+
+
+//Search
+ app.get("/api/search", searchMovies);
 
 }
