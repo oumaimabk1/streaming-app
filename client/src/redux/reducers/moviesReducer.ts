@@ -12,7 +12,7 @@ interface movieState {
 export const movieReducer = (state = initialState, action: any) => {
     switch (action.type) {
       case 'MOVIE_DATA_RECEIVED':
-        return { ...state, movieData: action.payload };
+        return { movieData: action.payload };
       default:
         return state;
     }
