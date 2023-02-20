@@ -80,7 +80,6 @@ export default function (app: Express) {
   //get all movies
   app.get("/api/getAllMovies", getAllMovies);
 
-<<<<<<< HEAD
   // Add a movie to favorites
 app.post("/api/favorites", addFavorite);
 
@@ -100,6 +99,4 @@ app.get("/api/ratings/:userId", getRatingsByUser);
 // Get ratings for a movie
 app.get("/api/ratings/:movieId", getMovieRating);
 
-=======
->>>>>>> 1bb064d00f80c9630f39e9ed384a51e23fce8cd5
 }
