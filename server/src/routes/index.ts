@@ -10,6 +10,7 @@ import { validateRequest, requiresUser } from "../middleware";
 import { createUserSchema, createUserSessionSchema } from "../shema/user.shema";
 import axios from "axios";
 import Movies from "../model/movie.model";
+import { getAllMovies } from "../controller/movies.controller";
 
 export default function (app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
@@ -51,4 +52,8 @@ export default function (app: Express) {
         });
     }
   })
+
+  
+  //get all movies
+  app.get("/api/getAllMovies", getAllMovies);
 }
