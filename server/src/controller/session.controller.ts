@@ -10,7 +10,7 @@ import {
 } from "../service/session.service";
 import { sign } from "../utils/jwt.utils";
 import axios from "axios";
-import Genres from "../model/Genre.model";
+import Genres from "../model/genre.model";
 
 export async function createUserSessionHandler(req: Request, res: Response) {
   // validate the email and password

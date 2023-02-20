@@ -11,6 +11,7 @@ import { createUserSchema, createUserSessionSchema } from "../shema/user.shema";
 import axios from "axios";
 import Movies from "../model/movie.model";
 import { getAllMovies } from "../controller/movies.controller";
+import { getAllGenres } from "../controller/genre.controller";
 
 import {
   addFavorite,
@@ -80,6 +81,11 @@ export default function (app: Express) {
   
   //get all movies
   app.get("/api/getAllMovies", getAllMovies);
+
+    //get all genres
+    app.get("/api/getAllGenres", getAllGenres);
+
+
 
   // Add a movie to favorites
 app.post("/api/favorites", addFavorite);
