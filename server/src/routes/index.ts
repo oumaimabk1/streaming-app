@@ -18,6 +18,11 @@ import {
   removeFavorite,
 } from "../controller/favorite.controller";
 
+import { addRating, 
+        getRatingsByUser,
+        getMovieRating,
+ } from "../controller/rating.controller";
+
 
 
 
@@ -75,5 +80,14 @@ app.get("/api/favorites/:userId", getFavoritesByUser);
 // Remove a movie from favorites
 app.delete("/api/favorites", removeFavorite);
 
+// Add a movie rating
+app.post("/api/ratings", addRating);
+
+// Get ratings bu user
+app.get("/api/ratings/:userId", getRatingsByUser);
+
+
+// Get ratings for a movie
+app.get("/api/ratings/:movieId", getMovieRating);
 
 }
