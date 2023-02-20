@@ -23,12 +23,10 @@ import { addRating,
         getMovieRating,
  } from "../controller/rating.controller";
 
-
-
+ import { searchMovies } from "../controller/search.controller";
 
 export default function (app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
-
 
   // Register user
   app.post("/api/users", validateRequest(createUserSchema), createUserHandler);
@@ -98,5 +96,8 @@ app.get("/api/ratings/:userId", getRatingsByUser);
 
 // Get ratings for a movie
 app.get("/api/ratings/:movieId", getMovieRating);
+
+//Search
+ app.get("/api/search", searchMovies);
 
 }

@@ -5,7 +5,7 @@ import { MovieDocument } from "./movie.model";
 export interface RatingDocument extends mongoose.Document {
     user: UserDocument["_id"];
     movie: MovieDocument["_id"];
-    value: Number;
+    score: Number;
 }
 
 const RatingSchema = new mongoose.Schema(
@@ -20,7 +20,7 @@ const RatingSchema = new mongoose.Schema(
             ref: "Movie",
             required: true,
         },
-        value: {
+        score: {
             type: Number,
             required: true,
             min: 1,
