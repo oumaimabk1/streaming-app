@@ -5,12 +5,22 @@ import config from "config";
 
 
 // Cette interface définit les propriétés que les documents utilisateur devraient avoir dans la bdd.
-export interface UserDocument extends mongoose.Document {    
-  email: string;
+export interface UserDocument extends mongoose.Document {
   name: string;
+  email: string;
   password: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  cardName: string;
+  cardNumber: string;
+  expiry: string;
+  cvv: string;
+  resetPasswordToken: string | undefined,
+  resetPasswordExpires: Date | undefined
   createdAt: Date;
-  updatedAt: Date;                                    
+  updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
@@ -18,11 +28,56 @@ export interface UserDocument extends mongoose.Document {
 //Définition d'un nouveau schéma de données Mongoose appelé UserSchema.
 const UserSchema = new mongoose.Schema(
   {
-    email: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    password: { type: String, required: true },
+    name: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    password: {
+      type: String,
+      required: true,
+      select: false
+    },
+    address: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String,
+      required: true
+    },
+    zip: {
+      type: String,
+      required: true
+    },
+    cardName: {
+      type: String,
+      required: true
+    },
+    cardNumber: {
+      type: String,
+      required: true
+    },
+    expiry: {
+      type: String,
+      required: true
+    },
+    cvv: {
+      type: String,
+      required: true
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
   },
-  { timestamps: true }            
+  { timestamps: true }
 );
 
 
@@ -52,11 +107,10 @@ UserSchema.methods.comparePassword = async function (
   candidatePassword: string
 ) {
   const user = this as UserDocument;
-
+  console.log(user)
   return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
 };
 
 const User = mongoose.model<UserDocument>("User", UserSchema);
 
 export default User;
-

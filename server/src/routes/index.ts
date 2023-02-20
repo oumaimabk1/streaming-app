@@ -1,6 +1,6 @@
 import { Express, Request, Response } from "express";
 
-import { createUserHandler } from "../controller/user.controller";
+import { createUserHandler, resetPassword, updatePassword, Verifytoken } from "../controller/user.controller";
 import {
   createUserSessionHandler,
   invalidateUserSessionHandler,
@@ -46,6 +46,15 @@ export default function (app: Express) {
   // Logout
   app.delete("/api/sessions", requiresUser, invalidateUserSessionHandler);
 
+  //reset password
+  app.post("/api/reset-password",resetPassword);
+  
+  app.get("/api/reset-password/:token", Verifytoken);
+  
+  app.post("/api/reset-password/:token", updatePassword);
+  
+
+
   app.get("api/video", () => {
     for (let page = 1; page <= 5000; page++) {
       console.log(page)
@@ -71,6 +80,7 @@ export default function (app: Express) {
   //get all movies
   app.get("/api/getAllMovies", getAllMovies);
 
+<<<<<<< HEAD
   // Add a movie to favorites
 app.post("/api/favorites", addFavorite);
 
@@ -90,4 +100,6 @@ app.get("/api/ratings/:userId", getRatingsByUser);
 // Get ratings for a movie
 app.get("/api/ratings/:movieId", getMovieRating);
 
+=======
+>>>>>>> 1bb064d00f80c9630f39e9ed384a51e23fce8cd5
 }

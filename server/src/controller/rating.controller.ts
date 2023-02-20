@@ -57,7 +57,7 @@ export async function getMovieRating(req: Request, res: Response) {
 
         // Récupère les notes du film
         const ratings = await Rating.find({ movie: movieId }).populate(
-            "movie"
+            "user"
         );
 
         res.json(ratings);
