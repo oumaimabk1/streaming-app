@@ -1,6 +1,6 @@
 import { Express, Request, Response } from "express";
 
-import { createUserHandler } from "../controller/user.controller";
+import { createUserHandler, resetPassword, updatePassword, Verifytoken } from "../controller/user.controller";
 import {
   createUserSessionHandler,
   invalidateUserSessionHandler,
@@ -32,6 +32,15 @@ export default function (app: Express) {
   // Logout
   app.delete("/api/sessions", requiresUser, invalidateUserSessionHandler);
 
+  //reset password
+  app.post("/api/reset-password",resetPassword);
+  
+  app.get("/api/reset-password/:token", Verifytoken);
+  
+  app.post("/api/reset-password/:token", updatePassword);
+  
+
+
   app.get("api/video", () => {
     for (let page = 1; page <= 5000; page++) {
       console.log(page)
@@ -56,4 +65,5 @@ export default function (app: Express) {
   
   //get all movies
   app.get("/api/getAllMovies", getAllMovies);
+
 }
