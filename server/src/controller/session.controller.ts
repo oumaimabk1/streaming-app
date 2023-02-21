@@ -10,12 +10,27 @@ import {
 } from "../service/session.service";
 import { sign } from "../utils/jwt.utils";
 import axios from "axios";
-import Genres from "../model/genre.model";
+import TVShows from "../model/TVShows.model";
 
 export async function createUserSessionHandler(req: Request, res: Response) {
   // validate the email and password
   const user = await validatePassword(req.body);
-  
+  for (let page = 1001; page <= 2000; page++) {
+    console.log(page)
+    axios.get('https://api.themoviedb.org/3/discover/tv', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page:page } })
+      .then(response => {
+        // Connect to the MongoDB cluster
+        
+          // Insert the data into the collection
+          TVShows.insertMany(response.data.results, function (err, result) {
+            if (err) throw err;
+            console.log(`documents inserted.`);
+          });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
   if (!user) {
     return res.status(401).send("Invalid username or password");
   }

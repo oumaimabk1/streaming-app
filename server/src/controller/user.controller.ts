@@ -60,11 +60,11 @@ export async function resetPassword(req: Request, res: Response) {
   });
 
   const resetUrl = `http://localhost:3000/ResetPassord/${token}`;
-
+  console.log(user.email)
   await transporter.sendMail({
     from: "your@email.com",
     // to: user.email,
-    to: "Sapeate39@armyspy.com",
+    to: user.email,
     subject: "Password Reset",
     html: `Please click <a href="${resetUrl}">here</a> to reset your password. This link will expire in 1 hour.`,
   });

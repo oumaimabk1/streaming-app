@@ -10,7 +10,7 @@ export async function addRating(req: Request, res: Response) {
 
         if (existingRating) {
             // Si l'utilisateur a déjà noté le film, met à jour la note existante
-            existingRating.score = score;
+           // existingRating.score = score;
             await existingRating.save();
 
             return res.json({
