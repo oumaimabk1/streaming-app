@@ -12,6 +12,8 @@ import axios from "axios";
 import Movies from "../model/movie.model";
 import { getAllMovies, getOneMovie } from "../controller/movies.controller";
 import { getAllGenres } from "../controller/genre.controller";
+import { authMiddleware } from "../middleware/auth.middleware";
+
 
 import {
   addFavorite,
@@ -87,25 +89,26 @@ export default function (app: Express) {
   app.get("/api/getAllGenres", getAllGenres);
 
   // Add a movie to favorites
-  app.post("/api/favorites", addFavorite);
+app.post("/api/favorites",authMiddleware, addFavorite);
 
-  // Get favorites by user id
-  app.get("/api/favorites/:userId", getFavoritesByUser);
+// Get favorites by user id
+app.get("/api/favorites/:userId", authMiddleware, getFavoritesByUser);
 
-  // Remove a movie from favorites
-  app.delete("/api/favorites", removeFavorite);
+// Remove a movie from favorites
+app.delete("/api/favorites", authMiddleware, removeFavorite);
 
-  // Add a movie rating
-  app.post("/api/ratings", addRating);
+// Add a movie rating
+app.post("/api/ratings", authMiddleware, addRating);
 
-  // Get ratings bu user
-  app.get("/api/ratings/:userId", getRatingsByUser);
+// Get ratings bu user
+app.get("/api/ratings/:userId", authMiddleware, getRatingsByUser);
 
 
-  // Get ratings for a movie
-  app.get("/api/ratings/:movieId", getMovieRating);
+// Get ratings for a movie
+app.get("/api/ratings/:movieId",authMiddleware, getMovieRating);
 
-  //Search
-  app.get("/api/search", searchMovies);
+
+//Search
+ app.get("/api/search", authMiddleware, searchMovies);
 
 }
