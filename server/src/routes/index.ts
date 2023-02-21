@@ -77,7 +77,7 @@ export default function (app: Express) {
 
   //TVShows
     app.get("api/tvShows", () => {
-      for (let page = 1; page <= 5000; page++) {
+      for (let page = 1; page <= 5; page+=5) {
         console.log(page)
         axios.get('https://api.themoviedb.org/3/discover/tv', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page:page } })
           .then(response => {
