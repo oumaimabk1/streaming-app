@@ -1,4 +1,4 @@
-import { Center, Flex } from "@chakra-ui/react";
+import { Box, Center, Flex } from "@chakra-ui/react";
 import { HStack } from '@chakra-ui/react';
 import { Input } from '@chakra-ui/react';
 
@@ -25,11 +25,16 @@ export const Search = () => {
             </HStack>
 
             <Input
-                alignItems="Center"
-                variant="outline"
-                placeholder="Search"
+              variant="outline"
+              borderColor="gray.500"
+              borderWidth="1.6px"
+              placeholder="Search"
+              width="85%"
+              textAlign="center"
             />
-            
+
+
+
         </Flex>
     );
 };
