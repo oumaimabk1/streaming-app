@@ -1,17 +1,22 @@
 import {
-    Flex, useColorModeValue, Box, Image, Text,
-    CircularProgress, CircularProgressLabel, Button
+    Flex,
+    useColorModeValue,
+    Box,
+    Image,
+    Text,
+    CircularProgress,
+    CircularProgressLabel,
+    Button
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { getOnemovie, getVideomovie } from "../redux/actions/moviesActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import {  BsHeartFill, BsHeart } from 'react-icons/bs';
+import { BsHeartFill, BsHeart } from 'react-icons/bs';
 import { AiFillCaretRight } from 'react-icons/ai'
-
+import YouTube from 'react-youtube';
 
 const DetailMovie = () => {
-
     const dispatch = useDispatch();
     const { id } = useParams();
     const [trailer, setTrailer] = useState(null);
@@ -20,18 +25,21 @@ const DetailMovie = () => {
     useEffect(() => {
         if (id) {
             dispatch(getOnemovie(id));
-           // dispatch(getVideomovie(id))
+            // dispatch(getVideomovie(id))
         }
-       
     }, []);
+
     const movieData = useSelector((state: any) => state.moviesData.movieData);
+    const onReady = (e: any) => {
+        console.log(e.target);
+    };
     const [liked, setLiked] = useState(false); return (
         <Flex
             flexDirection="column"
             width="100wh"
             height="100vh"
             bg={useColorModeValue('white', 'gray.800')}
-            backgroundImage={`https://image.tmdb.org/t/p/original/${movieData.backdrop_path}`}
+            background={`linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0, 0, 0, 0.5)),url(https://image.tmdb.org/t/p/original/${movieData.backdrop_path})`}
             backgroundSize="cover"
         >
             <Flex m={20} justifyContent='space-between' alignItems='flex-start' flexWrap="wrap" >
@@ -56,7 +64,7 @@ const DetailMovie = () => {
                             >Drama</Flex>
                         })}
                     </Flex>
-                    <Text mt={20} textAlign='left'  fontSize="l">{movieData.overview}</Text>
+                    <Text mt={20} textAlign='left' fontSize="l">{movieData.overview}</Text>
                     <Flex mt={10}>
                         <Flex
                             p={4}
@@ -82,10 +90,17 @@ const DetailMovie = () => {
                     </Flex>
 
                 </Box>
+                <Box>
+                    <Text>Video</Text>
+                    {movieData.key ? <YouTube
+                        videoId={movieData.key} // defaults -> null
+                        onReady={onReady}
+                    /> : <Text></Text> }
+                    
+                </Box>
             </Flex>
         </Flex>
-    );
-};
-
+    )
+}
 
 export default DetailMovie;

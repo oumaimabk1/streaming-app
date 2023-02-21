@@ -18,20 +18,18 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 const Links = ['Home', 'Movies', 'Search'];
 
-const NavLink = ({ children }: { children: ReactNode }) => (
-
-    <Link  
-        px={2}
+const NavLink = ({ children }: { children: any }) => (
+    <Box px={2}
         py={1}
         rounded={'md'}
         _hover={{
             textDecoration: 'none',
             bg: useColorModeValue('gray.200', 'gray.700'),
-        }}
-        >
-        {children}
-
-    </Link>
+        }}>
+        <L to={children}>
+            {children}
+        </L>
+    </Box>
 );
 
 export default function Navbar() {
@@ -54,10 +52,10 @@ export default function Navbar() {
                         spacing={4}
                         display={{ base: 'none', md: 'flex' }}>
                         {Links.map((link) => (
-                            <NavLink  key={link}>
-                             <L to={link}>
-                            {link}
-                            </L>
+                            <NavLink key={link}>
+
+                                {link}
+
                             </NavLink>
                         ))}
                     </HStack>
@@ -85,7 +83,7 @@ export default function Navbar() {
                 </Flex>
             </Flex>
 
-          
+
         </Box>
     );
 }
