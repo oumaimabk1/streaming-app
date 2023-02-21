@@ -97,12 +97,14 @@ const navigate = useNavigate();
       </Stack>
       <Box>
         already signed up?{" "}
-        <L to='/login' >
+        
           <Link color="teal.500">
+          <L to='/login' >
           Login
+          </L>
           </Link>
           
-        </L>
+        
       </Box>
     </Flex>
     );

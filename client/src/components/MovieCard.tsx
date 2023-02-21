@@ -1,28 +1,23 @@
-
 import {
   Flex,
-  Circle,
   Box,
   Image,
-  Badge,
   useColorModeValue,
-  Icon,
-  chakra,
-  Tooltip,
   CircularProgress,
   CircularProgressLabel
 } from '@chakra-ui/react';
+import { FaYoutube } from 'react-icons/fa';
 import { useState } from 'react';
-import { BsStar, BsStarFill, BsStarHalf, BsHeartFill, BsHeart } from 'react-icons/bs';
-import { FiShoppingCart } from 'react-icons/fi';
+import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 import { movieTypes } from '../redux/types';
-
+import { useNavigate } from 'react-router-dom';
 interface MovieCardProps {
   data: movieTypes;
 }
 interface RatingProps {
   rating: number;
 }
+
 function Rating({ rating }: RatingProps) {
   return (
     <Box display="flex" alignItems="center">
@@ -50,9 +45,10 @@ function Rating({ rating }: RatingProps) {
 }
 
 function MovieCard({ data }: MovieCardProps) {
+  const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
-  return (
 
+  return (
     <Box
       bg={useColorModeValue('white', 'gray.800')}
       maxW="sm"
@@ -60,9 +56,10 @@ function MovieCard({ data }: MovieCardProps) {
       rounded="lg"
       shadow="lg"
       m={1}
-      position="relative">
-
-
+      position="relative"
+      transition="all 0.3s ease-in-out"
+      _hover={{ filter: "brightness(0.5)" }}
+    >
       <CircularProgress value={data.vote_average * 10} color='green.400' position="absolute"
         bottom={65}
         left={2}
@@ -93,15 +90,41 @@ function MovieCard({ data }: MovieCardProps) {
             roundedBottom={'sm'}
             cursor="pointer"
             onClick={() => setLiked(!liked)}>
-            {liked ? (
+            {/* {liked ? (
               <BsHeartFill fill="red" fontSize={'24px'} />
             ) : (
               <BsHeart fontSize={'24px'} />
-            )}
+            )} */}
           </Flex>
         </Flex>
       </Box>
-
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        w="100%"
+        h="100%"
+        opacity={0}
+        transition="opacity 0.3s ease-in-out"
+        _hover={{ opacity: 1 }}
+        cursor="pointer"
+      >
+        <Box
+          bgGradient="linear(to-b, transparent, black)"
+          p={4}
+          w="100%"
+          h="100%"
+          textAlign="center"
+          color="white"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          onClick={()=>navigate(`/Movie/${data.id}`) }
+        >
+        
+        <FaYoutube size={50} color="red" />
+        </Box>
+      </Box>
     </Box>
 
   );

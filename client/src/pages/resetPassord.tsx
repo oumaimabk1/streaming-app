@@ -30,7 +30,6 @@ const ResetPassword = (props: any) => {
     const toast = useToast()
     const navigate = useNavigate();
     const { token } = useParams();
-    console.log(token)
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         

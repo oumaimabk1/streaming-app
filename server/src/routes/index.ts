@@ -10,7 +10,7 @@ import { validateRequest, requiresUser } from "../middleware";
 import { createUserSchema, createUserSessionSchema } from "../shema/user.shema";
 import axios from "axios";
 import Movies from "../model/movie.model";
-import { getAllMovies } from "../controller/movies.controller";
+import { getAllMovies, getOneMovie } from "../controller/movies.controller";
 import { getAllGenres } from "../controller/genre.controller";
 
 import {
@@ -19,12 +19,13 @@ import {
   removeFavorite,
 } from "../controller/favorite.controller";
 
-import { addRating, 
-        getRatingsByUser,
-        getMovieRating,
- } from "../controller/rating.controller";
+import {
+  addRating,
+  getRatingsByUser,
+  getMovieRating,
+} from "../controller/rating.controller";
 
- import { searchMovies } from "../controller/search.controller";
+import { searchMovies } from "../controller/search.controller";
 
 export default function (app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
@@ -46,28 +47,28 @@ export default function (app: Express) {
   app.delete("/api/sessions", requiresUser, invalidateUserSessionHandler);
 
   //reset password
-  app.post("/api/reset-password",resetPassword);
-  
+  app.post("/api/reset-password", resetPassword);
+
   app.get("/api/reset-password/:token", Verifytoken);
-  
+
   app.post("/api/reset-password/:token", updatePassword);
-  
+
 
 
   app.get("api/video", () => {
     for (let page = 1; page <= 5000; page++) {
       console.log(page)
-      axios.get('https://api.themoviedb.org/3/discover/movie', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page:page } })
+      axios.get('https://api.themoviedb.org/3/discover/movie', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page: page } })
         .then(response => {
           // Connect to the MongoDB cluster
-          
-            // Insert the data into the collection
-            Movies.insertMany(response.data.results, function (err, result) {
-              if (err) throw err;
-              console.log(`documents inserted.`);
-      
-            });
-         
+
+          // Insert the data into the collection
+          Movies.insertMany(response.data.results, function (err, result) {
+            if (err) throw err;
+            console.log(`documents inserted.`);
+
+          });
+
         })
         .catch(error => {
           console.error(error);
@@ -75,35 +76,36 @@ export default function (app: Express) {
     }
   })
 
-  
   //get all movies
   app.get("/api/getAllMovies", getAllMovies);
 
-    //get all genres
-    app.get("/api/getAllGenres", getAllGenres);
+  //get one movie
+  app.get("/api/getOneMovie/:id", getOneMovie);
 
 
+  //get all genres
+  app.get("/api/getAllGenres", getAllGenres);
 
   // Add a movie to favorites
-app.post("/api/favorites", addFavorite);
+  app.post("/api/favorites", addFavorite);
 
-// Get favorites by user id
-app.get("/api/favorites/:userId", getFavoritesByUser);
+  // Get favorites by user id
+  app.get("/api/favorites/:userId", getFavoritesByUser);
 
-// Remove a movie from favorites
-app.delete("/api/favorites", removeFavorite);
+  // Remove a movie from favorites
+  app.delete("/api/favorites", removeFavorite);
 
-// Add a movie rating
-app.post("/api/ratings", addRating);
+  // Add a movie rating
+  app.post("/api/ratings", addRating);
 
-// Get ratings bu user
-app.get("/api/ratings/:userId", getRatingsByUser);
+  // Get ratings bu user
+  app.get("/api/ratings/:userId", getRatingsByUser);
 
 
-// Get ratings for a movie
-app.get("/api/ratings/:movieId", getMovieRating);
+  // Get ratings for a movie
+  app.get("/api/ratings/:movieId", getMovieRating);
 
-//Search
- app.get("/api/search", searchMovies);
+  //Search
+  app.get("/api/search", searchMovies);
 
 }
