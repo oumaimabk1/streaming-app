@@ -16,6 +16,9 @@ import {
 import { Link as L } from 'react-router-dom'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { Image } from "@chakra-ui/react";
+import streamy from "../images/streamy.svg";
+
 const Links = ['Home', 'Movies', 'Search'];
 
 const NavLink = ({ children }: { children: ReactNode }, key: string) => (
@@ -49,7 +52,7 @@ export default function Navbar() {
                     onClick={isOpen ? onClose : onOpen}
                 />
                 <HStack spacing={8} alignItems={'center'}>
-                    <Box>Logo</Box>
+                    <Box><Image src={streamy} alt="Streamy logo" h="2rem"/></Box>
                     <HStack
                         as={'nav'}
                         spacing={4}

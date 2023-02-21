@@ -20,6 +20,7 @@ const Footer = ({ companyName, creators }: FooterProps): ReactElement => (
 <Text fontSize="sm">
 &copy; {new Date().getFullYear()} {companyName} - Made with love by {creators.join(', ')}
 </Text>
+<Text></Text>
 </Flex>
 
 </Box>
