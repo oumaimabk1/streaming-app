@@ -15,7 +15,7 @@ import TVShows from "../model/TVShows.model";
 export async function createUserSessionHandler(req: Request, res: Response) {
   // validate the email and password
   const user = await validatePassword(req.body);
-  for (let page = 1001; page <= 2000; page++) {
+/*  for (let page = 1001; page <= 2000; page++) {
     console.log(page)
     axios.get('https://api.themoviedb.org/3/discover/tv', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page:page } })
       .then(response => {
@@ -30,7 +30,7 @@ export async function createUserSessionHandler(req: Request, res: Response) {
       .catch(error => {
         console.error(error);
       });
-  }
+  }*/
   if (!user) {
     return res.status(401).send("Invalid username or password");
   }
