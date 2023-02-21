@@ -24,4 +24,5 @@ const Footer = ({ companyName, creators }: FooterProps): ReactElement => (
 
 </Box>
 );
+
 export default Footer;
