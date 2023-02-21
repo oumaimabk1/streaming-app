@@ -11,7 +11,7 @@ import { createUserSchema, createUserSessionSchema } from "../shema/user.shema";
 import axios from "axios";
 import Movies from "../model/movie.model";
 import { getAllMovies, getOneMovie } from "../controller/movies.controller";
-import { getAllGenres } from "../controller/genre.controller";
+import { getAllGenres, getGenresByIds } from "../controller/genre.controller";
 import { authMiddleware } from "../middleware/auth.middleware";
 
 
@@ -55,15 +55,13 @@ export default function (app: Express) {
 
   app.post("/api/reset-password/:token", updatePassword);
 
-
-
+  //movie
   app.get("api/video", () => {
     for (let page = 1; page <= 5000; page++) {
       console.log(page)
       axios.get('https://api.themoviedb.org/3/discover/movie', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page: page } })
         .then(response => {
           // Connect to the MongoDB cluster
-
           // Insert the data into the collection
           Movies.insertMany(response.data.results, function (err, result) {
             if (err) throw err;
@@ -88,27 +86,28 @@ export default function (app: Express) {
   //get all genres
   app.get("/api/getAllGenres", getAllGenres);
 
+    //get genres by Ids
+    app.get("/api/getGenresByIds", getGenresByIds);
+
   // Add a movie to favorites
-app.post("/api/favorites",authMiddleware, addFavorite);
+  app.post("/api/favorites",authMiddleware, addFavorite);
 
-// Get favorites by user id
-app.get("/api/favorites/:userId", authMiddleware, getFavoritesByUser);
+  // Get favorites by user id
+  app.get("/api/favorites/:userId", authMiddleware, getFavoritesByUser);
 
-// Remove a movie from favorites
-app.delete("/api/favorites", authMiddleware, removeFavorite);
+  // Remove a movie from favorites
+  app.delete("/api/favorites", authMiddleware, removeFavorite);
 
-// Add a movie rating
-app.post("/api/ratings", authMiddleware, addRating);
+  // Add a movie rating
+  app.post("/api/ratings", authMiddleware, addRating);
 
-// Get ratings bu user
-app.get("/api/ratings/:userId", authMiddleware, getRatingsByUser);
+  // Get ratings bu user
+  app.get("/api/ratings/:userId", authMiddleware, getRatingsByUser);
 
+  // Get ratings for a movie
+  app.get("/api/ratings/:movieId",authMiddleware, getMovieRating);
 
-// Get ratings for a movie
-app.get("/api/ratings/:movieId",authMiddleware, getMovieRating);
-
-
-//Search
- app.get("/api/search", authMiddleware, searchMovies);
+  //Search
+  app.get("/api/search", authMiddleware, searchMovies);
 
 }
