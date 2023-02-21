@@ -7,6 +7,7 @@ import axios from "axios";
 import Movies from "../model/movie.model";
 import { getAllMovies, getOneMovie } from "../controller/movies.controller";
 import { getAllGenres, getGenresByIds } from "../controller/genre.controller";
+import { authMiddleware } from "../middleware/auth.middleware";
 import { addFavorite, getFavoritesByUser, removeFavorite } from "../controller/favorite.controller";
 import { addRating, getRatingsByUser, getMovieRating } from "../controller/rating.controller";
 import { searchMovies } from "../controller/search.controller";
@@ -95,6 +96,21 @@ export default function (app: Express) {
 
    //get all tvShows
    app.get("/api/getAllTVShows", getAllTVShows);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Add a movie to favorites
   app.post("/api/favorites",authenticate, addFavorite);
