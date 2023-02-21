@@ -1,4 +1,4 @@
-import { Button, chakra, Flex, FormControl, Input, InputGroup, InputLeftElement, Stack } from '@chakra-ui/react';
+import { Button, chakra, Flex, FormControl, Input, InputGroup, InputLeftElement, Stack ,useColorModeValue} from '@chakra-ui/react';
 import { FaUserAlt, FaLock } from "react-icons/fa";
 
 const CFaUserAlt = chakra(FaUserAlt);
@@ -11,7 +11,7 @@ export const Step3 = ({ formData, handleChange, handleSubmit, handleBack }: any)
       <Stack
         spacing={4}
         p="1rem"
-        backgroundColor="whiteAlpha.900"
+        backgroundColor={useColorModeValue("whiteAlpha.900", 'gray.800')}
         boxShadow="md"
       >
         <FormControl>
@@ -77,6 +77,7 @@ export const Step3 = ({ formData, handleChange, handleSubmit, handleBack }: any)
           >
             Submit
           </Button>
+         
         </Flex>
       </Stack>
     </form>

@@ -10,24 +10,57 @@ import {
     InputLeftElement,
     chakra,
     Box,
-    Text,
+    useColorModeValue,
     FormControl,
-    Link} from "@chakra-ui/react";
+    useToast} from "@chakra-ui/react";
+    import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FaUserAlt } from "react-icons/fa";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { Link as L } from "react-router-dom";
+import { Link as L ,useNavigate,useParams} from "react-router-dom";
+import { updatePasswordEmail } from "../redux/actions/resetPasswordAction";
+
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaBack = chakra(AiOutlineArrowLeft);
 
 const ResetPassword = (props: any) => {
-
+    const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
+    const toast = useToast()
+    const navigate = useNavigate();
+    const { token } = useParams();
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        
+        try {
+            await dispatch(updatePasswordEmail(password, token));
+            toast({
+              title: 'Password updated.',
+              description: "You can Loggin.",
+              status: 'success',
+              duration: 3000,
+              isClosable: true,
+              onCloseComplete: () => {
+                navigate('/Login'); // Navigate to the login page after the toast is closed
+              },
+            })
+        } catch (error) {
+            console.error(error);
+            toast({
+              title: 'Something went wrong please retry.',
+              status: 'error',
+              duration: 5000,
+              isClosable: true,
+            })
+        }
+    };
     return (
         <Flex
             flexDirection="column"
             width="100wh"
             height="100vh"
-            backgroundColor="gray.200"
+            backgroundColor={useColorModeValue("gray.200", 'gray.800')}
             justifyContent="center"
             alignItems="center"
         >
@@ -36,13 +69,14 @@ const ResetPassword = (props: any) => {
                 mb="2"
                 justifyContent="center"
                 alignItems="center"
+               
             >
                 <Box minW={{ base: "90%", md: "468px" }}>
                     <form>
                         <Stack
                             spacing={4}
                             p="1rem"
-                            backgroundColor="whiteAlpha.900"
+                            backgroundColor={useColorModeValue("whiteAlpha.900", 'gray.800')}
                             boxShadow="md"
                         >
                             <FormControl>
@@ -51,17 +85,7 @@ const ResetPassword = (props: any) => {
                                         pointerEvents="none"
                                         children={<CFaUserAlt color="gray.300" />}
                                     />
-                                    <Input type="email" placeholder="email address"
-                                    />
-                                </InputGroup>
-                            </FormControl>
-                            <FormControl>
-                                <InputGroup>
-                                    <InputLeftElement
-                                        pointerEvents="none"
-                                        children={<CFaUserAlt color="gray.300" />}
-                                    />
-                                    <Input type="password" placeholder="new password"
+                                    <Input type="password" placeholder="new password" value={password}  onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </InputGroup>
                             </FormControl>
@@ -81,6 +105,7 @@ const ResetPassword = (props: any) => {
                                 variant="solid"
                                 colorScheme="teal"
                                 width="full"
+                                onClick={handleSubmit}
                             >
                                 Save password
                             </Button>
@@ -89,13 +114,12 @@ const ResetPassword = (props: any) => {
                 </Box>
             </Stack>
             <Box>
-                <Link color="teal.500">
-                    
-                    <CFaBack  color='gray.300'/>
-                    <L to="/login">
-                        Back to login
-                    </L>
-                </Link>
+            <Flex alignItems={'center'}>
+                        <CFaBack color="teal.500" mr={2} />
+                        <L to="/login">
+                            Back to login
+                        </L>
+                    </Flex>
             </Box>
         </Flex>
     );

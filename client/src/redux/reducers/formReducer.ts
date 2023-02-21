@@ -38,6 +38,7 @@ export function formReducer(state = initialState, action: any) {
         ...state,
         formData: initialState.formData,
       };
+      
     default:
       return state;
   }

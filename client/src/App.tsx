@@ -10,6 +10,7 @@ import Movies from './pages/Movies';
 import RegistrationForm from './pages/Registration';
 import {Search} from './pages/Search';
 import ResetPassord from './pages/resetPassord';
+import DetailMovie from './pages/DetailMovie';
 
 function App() {
 
@@ -26,6 +27,8 @@ function App() {
           <Route path="/Home" element={<Home />}></Route>
           <Route path="/Search" element={<Search />}></Route>
           <Route path="/Movies" element={<Movies />}></Route>
+          <Route path="/Movie/:id" element={<DetailMovie />}></Route>
+          
         </Routes>
       {/* app routes */}
     </div>
