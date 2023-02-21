@@ -1,11 +1,6 @@
 import { Express, Request, Response } from "express";
-
 import { createUserHandler, resetPassword, updatePassword, Verifytoken } from "../controller/user.controller";
-import {
-  createUserSessionHandler,
-  invalidateUserSessionHandler,
-  getUserSessionsHandler,
-} from "../controller/session.controller";
+import { createUserSessionHandler, invalidateUserSessionHandler, getUserSessionsHandler } from "../controller/session.controller";
 import { validateRequest, requiresUser } from "../middleware";
 import { createUserSchema, createUserSessionSchema } from "../shema/user.shema";
 import axios from "axios";
@@ -13,21 +8,11 @@ import Movies from "../model/movie.model";
 import { getAllMovies } from "../controller/movies.controller";
 import { getAllGenres, getGenresByIds } from "../controller/genre.controller";
 import { authMiddleware } from "../middleware/auth.middleware";
-
-
-import {
-  addFavorite,
-  getFavoritesByUser,
-  removeFavorite,
-} from "../controller/favorite.controller";
-
-import { addRating, 
-        getRatingsByUser,
-        getMovieRating,
- } from "../controller/rating.controller";
-
- import { searchMovies } from "../controller/search.controller";
-
+import { addFavorite, getFavoritesByUser, removeFavorite } from "../controller/favorite.controller";
+import { addRating, getRatingsByUser, getMovieRating } from "../controller/rating.controller";
+import { searchMovies } from "../controller/search.controller";
+import TVShows from "../model/TVShows.model";
+import { getAllTVShows } from "../controller/TVShows.controller";
 
 
 export default function (app: Express) {
@@ -82,8 +67,46 @@ export default function (app: Express) {
   //get all genres
   app.get("/api/getAllGenres", getAllGenres);
 
-    //get genres by Ids
-    app.get("/api/getGenresByIds", getGenresByIds);
+  //get genres by Ids
+  app.get("/api/getGenresByIds", getGenresByIds);
+
+  //TVShows
+    app.get("api/tvShows", () => {
+      for (let page = 1; page <= 5000; page++) {
+        console.log(page)
+        axios.get('https://api.themoviedb.org/3/discover/tv', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page:page } })
+          .then(response => {
+            // Connect to the MongoDB cluster
+            
+              // Insert the data into the collection
+              TVShows.insertMany(response.data.results, function (err, result) {
+                if (err) throw err;
+                console.log(`documents inserted.`);
+              });
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    })
+
+   //get all tvShows
+   app.get("/api/getAllTVShows", getAllTVShows);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Add a movie to favorites
   app.post("/api/favorites",authMiddleware, addFavorite);
