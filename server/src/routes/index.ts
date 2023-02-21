@@ -11,7 +11,7 @@ import { createUserSchema, createUserSessionSchema } from "../shema/user.shema";
 import axios from "axios";
 import Movies from "../model/movie.model";
 import { getAllMovies } from "../controller/movies.controller";
-import { getAllGenres } from "../controller/genre.controller";
+import { getAllGenres, getGenresByIds } from "../controller/genre.controller";
 import { authMiddleware } from "../middleware/auth.middleware";
 
 
@@ -32,7 +32,6 @@ import { addRating,
 
 export default function (app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
-
 
   // Register user
   app.post("/api/users", validateRequest(createUserSchema), createUserHandler);
@@ -56,9 +55,8 @@ export default function (app: Express) {
   app.get("/api/reset-password/:token", Verifytoken);
   
   app.post("/api/reset-password/:token", updatePassword);
-  
 
-
+  //movie
   app.get("api/video", () => {
     for (let page = 1; page <= 5000; page++) {
       console.log(page)
@@ -70,9 +68,7 @@ export default function (app: Express) {
             Movies.insertMany(response.data.results, function (err, result) {
               if (err) throw err;
               console.log(`documents inserted.`);
-      
             });
-         
         })
         .catch(error => {
           console.error(error);
@@ -80,36 +76,34 @@ export default function (app: Express) {
     }
   })
 
-  
   //get all movies
   app.get("/api/getAllMovies", getAllMovies);
 
-    //get all genres
-    app.get("/api/getAllGenres", getAllGenres);
+  //get all genres
+  app.get("/api/getAllGenres", getAllGenres);
 
-
+    //get genres by Ids
+    app.get("/api/getGenresByIds", getGenresByIds);
 
   // Add a movie to favorites
-app.post("/api/favorites",authMiddleware, addFavorite);
+  app.post("/api/favorites",authMiddleware, addFavorite);
 
-// Get favorites by user id
-app.get("/api/favorites/:userId", authMiddleware, getFavoritesByUser);
+  // Get favorites by user id
+  app.get("/api/favorites/:userId", authMiddleware, getFavoritesByUser);
 
-// Remove a movie from favorites
-app.delete("/api/favorites", authMiddleware, removeFavorite);
+  // Remove a movie from favorites
+  app.delete("/api/favorites", authMiddleware, removeFavorite);
 
-// Add a movie rating
-app.post("/api/ratings", authMiddleware, addRating);
+  // Add a movie rating
+  app.post("/api/ratings", authMiddleware, addRating);
 
-// Get ratings bu user
-app.get("/api/ratings/:userId", authMiddleware, getRatingsByUser);
+  // Get ratings bu user
+  app.get("/api/ratings/:userId", authMiddleware, getRatingsByUser);
 
+  // Get ratings for a movie
+  app.get("/api/ratings/:movieId",authMiddleware, getMovieRating);
 
-// Get ratings for a movie
-app.get("/api/ratings/:movieId",authMiddleware, getMovieRating);
-
-
-//Search
- app.get("/api/search", authMiddleware, searchMovies);
+  //Search
+  app.get("/api/search", authMiddleware, searchMovies);
 
 }
