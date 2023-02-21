@@ -9,7 +9,7 @@ import { getAllMovies, getOneMovie } from "../controller/movies.controller";
 import { getAllGenres, getGenresByIds } from "../controller/genre.controller";
 import { addFavorite, getFavoritesByUser, removeFavorite } from "../controller/favorite.controller";
 import { addRating, getRatingsByUser, getMovieRating } from "../controller/rating.controller";
-import { searchMovies } from "../controller/search.controller";
+import { searchMovies, searchTVShows } from "../controller/search.controller";
 import TVShows from "../model/TVShows.model";
 import { getAllTVShows } from "../controller/TVShows.controller";
 
@@ -78,7 +78,6 @@ export default function (app: Express) {
   //TVShows
     app.get("api/tvShows", () => {
       for (let page = 1; page <= 5; page+=5) {
-        console.log(page)
         axios.get('https://api.themoviedb.org/3/discover/tv', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page:page } })
           .then(response => {
             // Connect to the MongoDB cluster
@@ -95,6 +94,33 @@ export default function (app: Express) {
       }
     })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
    //get all tvShows
    app.get("/api/getAllTVShows", getAllTVShows);
 
@@ -120,6 +146,7 @@ export default function (app: Express) {
   app.get("/api/ratings/:movieId",authenticate, getMovieRating);
 
   //Search
-  app.get("/api/search", authenticate, searchMovies);
+  app.get("/api/searchMovies", searchMovies);
+  app.get("/api/searchTVShows", searchTVShows);
 
 }
