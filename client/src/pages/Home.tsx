@@ -3,6 +3,7 @@ import { Text } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import Button from "../components/Button/Button";
+import Footer from "../Footer/footer";
 import jurassicpark from "../images/jurassicpark.jpg";
 import office from "../images/office.jpg";
 import starwars from "../images/starwars.jpg";
@@ -30,7 +31,7 @@ const Home = () => {
         padding="1rem"
       >
         
-        <Text>Welcome to</Text>
+        <Text mt="6">Welcome to</Text>
 
         <Image src={streamy} alt="Streamy logo" h="8rem" m="6"/>
 
@@ -44,6 +45,7 @@ const Home = () => {
           <Image src={jurassicpark} alt="Jurassic Park" h="16rem" m="6"/>
           <Image src={office} alt="The Office" h="16rem" m="6"/>
         </Flex>
+        <Footer companyName="Streamy" creators={['Oumaima', 'Zineb', 'Nico']} />
       </Flex>
     </Flex>
   );
