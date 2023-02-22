@@ -16,34 +16,6 @@ import GenresTVShow from "../model/genreTVShow.model";
 export async function createUserSessionHandler(req: any, res: Response) {
   // validate the email and password
   const user = await validatePassword(req.body);
- for (let page = 1001; page <= 2000; page++) {
-axios.get('https://api.themoviedb.org/3/discover/tv', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page: page } })
-  .then(response => {
-    const tvShows = response.data.results;
-
-    const genres = tvShows.flatMap((tvShow: any) =>
-    tvShow.genre_ids.map((genreId: number) => ({ genreId, tvShowId: tvShow.id }))
-    );
-
-    // Insert TV shows
-    TVShows.insertMany(tvShows, function (err, result) {
-      if (err) throw err;
-      console.log(`${result.length} TV shows inserted.`);
-    });
-
-    // Insert genres
-    GenresTVShow.insertMany(genres, function (err, result) {
-      if (err) throw err;
-      console.log(`${result.length} genres inserted.`);
-    });
-  })
-  .catch(error => {
-    console.error(error);
-  });
-  }
-
-
-
   if (!user) {
     return res.status(401).send("Invalid username or password");
   }

@@ -11,10 +11,10 @@ import { addFavorite, getFavoritesByUser, removeFavorite } from "../controller/f
 import { addRating, getRatingsByUser, getMovieRating } from "../controller/rating.controller";
 import { searchMovies } from "../controller/search.controller";
 import { filtreAndSearch } from "../controller/filtreAndSearch.controller";
-
 import TVShows from "../model/TVShows.model";
-import { getAllTVShows } from "../controller/TVShows.controller";
-
+import { getAllTVShows, getOneTVShow } from "../controller/TVShows.controller";
+import { filtreAndSearchTVShows } from "../controller/filterAndSearchTVShows.controller";
+import { getAllTVShowsGenres, getGenresTVShowsByIds } from "../controller/genreTVShow.controller";
 
 export default function (app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
@@ -69,12 +69,15 @@ export default function (app: Express) {
   //get one movie
   app.get("/api/getOneMovie/:id", getOneMovie);
 
-
   //get all genres
   app.get("/api/getAllGenres", getAllGenres);
 
   //get genres by Ids
   app.get("/api/getGenresByIds", getGenresByIds);
+
+    //Search movies
+    app.get("/api/searchMovies", searchMovies);
+    app.get("/api/filtreAndSearch",  filtreAndSearch);
 
   
   //TVShows
@@ -96,9 +99,20 @@ export default function (app: Express) {
       }
     })
 
-    
    //get all tvShows
    app.get("/api/getAllTVShows", getAllTVShows);
+
+  //get one TVShow
+  app.get("/api/getOneMovie/:id", getOneTVShow);
+
+  //get all genres TVShows
+  app.get("/api/getAllTVShowsGenres", getAllTVShowsGenres);
+
+  //get genres TVShows by Ids
+  app.get("/api/getGenresTVShowsByIds", getGenresTVShowsByIds);
+
+  //Search TVShows
+  app.get("/api/filtreAndSearchTVShows",  filtreAndSearchTVShows);
 
 
   // Add a movie to favorites
