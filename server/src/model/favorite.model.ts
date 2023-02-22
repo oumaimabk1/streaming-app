@@ -5,7 +5,7 @@ import { MovieDocument } from "./movie.model";
 // Spécifie les propriétés requises pour un document de favori.
 export interface FavoriteDocument extends mongoose.Document {
     user: UserDocument["_id"];
-    movie: MovieDocument["_id"];
+    movie: MovieDocument["id"];
 }
 
 const FavoriteSchema = new mongoose.Schema(

@@ -11,6 +11,7 @@ import RegistrationForm from './pages/Registration';
 import {Search} from './pages/Search';
 import ResetPassord from './pages/resetPassord';
 import DetailMovie from './pages/DetailMovie';
+import FavoriteMovies from './pages/FavoritePage';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/Search" element={<Search />}></Route>
           <Route path="/Movies" element={<Movies />}></Route>
           <Route path="/Movie/:id" element={<DetailMovie />}></Route>
+          <Route path="/FavoriteMovies" element={<FavoriteMovies />}></Route>
           
         </Routes>
       {/* app routes */}

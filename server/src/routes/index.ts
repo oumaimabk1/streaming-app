@@ -9,7 +9,6 @@ import { filterAllMovies, getAllMovies, getOneMovie } from "../controller/movies
 import { getAllGenres, getGenresByIds } from "../controller/genre.controller";
 import { addFavorite, getFavoritesByUser, removeFavorite } from "../controller/favorite.controller";
 import { addRating, getRatingsByUser, getMovieRating } from "../controller/rating.controller";
-import { searchMovies } from "../controller/search.controller";
 import { filtreAndSearch } from "../controller/filtreAndSearch.controller";
 import TVShows from "../model/TVShows.model";
 import { getAllTVShows, getOneTVShow } from "../controller/TVShows.controller";
@@ -75,13 +74,12 @@ export default function (app: Express) {
   //get genres by Ids
   app.get("/api/getGenresByIds", getGenresByIds);
 
-    //Search movies
-    app.get("/api/searchMovies", searchMovies);
-    app.get("/api/filtreAndSearch",  filtreAndSearch);
+  //Search movies
+  app.get("/api/filtreAndSearch", filtreAndSearch);
 
 
-   //get all tvShows
-   app.get("/api/getAllTVShows", getAllTVShows);
+  //get all tvShows
+  app.get("/api/getAllTVShows", getAllTVShows);
 
   //get one TVShow
   app.get("/api/getOneMovie/:id", getOneTVShow);
@@ -93,14 +91,14 @@ export default function (app: Express) {
   app.get("/api/getGenresTVShowsByIds", getGenresTVShowsByIds);
 
   //Search TVShows
-  app.get("/api/filtreAndSearchTVShows",  filtreAndSearchTVShows);
+  app.get("/api/filtreAndSearchTVShows", filtreAndSearchTVShows);
 
 
   // Add a movie to favorites
-  app.post("/api/favorites",authenticate, addFavorite);
+  app.post("/api/favorites", authenticate, addFavorite);
 
   // Get favorites by user id
-  app.get("/api/favorites/:userId", authenticate, getFavoritesByUser);
+  app.get("/api/favorites/:userId", getFavoritesByUser);
 
   // Remove a movie from favorites
   app.delete("/api/favorites", authenticate, removeFavorite);
@@ -112,13 +110,12 @@ export default function (app: Express) {
   app.get("/api/ratings/:userId", authenticate, getRatingsByUser);
 
   // Get ratings for a movie
-  app.get("/api/ratings/:movieId",authenticate, getMovieRating);
+  app.get("/api/ratings/:movieId", authenticate, getMovieRating);
 
   //Search //j'ai anulte lemidelware pour le test
   app.post("/api/searchmovies", filterAllMovies);
-  
-  //Search
-  app.get("/api/filtreAndSearch",  filtreAndSearch);
+
+
 
 
 

@@ -1,6 +1,8 @@
 import MovieDocument from '../model/movie.model';
 import { Request, Response } from 'express';
-import Genres from '../model/Genre.model';
+import Genres from '../model/genre.model';
+
+
 
 export async function getAllMovies(req: any, res: Response) {
 

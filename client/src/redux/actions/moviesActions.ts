@@ -2,7 +2,7 @@ import axios from 'axios';
 import { url } from './apiUrl';
 
 // Step 1: Define an action that will make the API request
-export const fetchMOVIEData = (page: number = 1, limit: number = 10, title: string , genre_ids: any[] ): any => {
+export const fetchMOVIEData = (page: number = 1, limit: number = 10, title: string ="" , genre_ids: any[]=[] ): any => {
   console.log(page)
   return async (dispatch: any) => {
     dispatch({ type: 'MOVIE_DATA_LOADING' });

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
+import Genres, { GenreDocument } from "../model/genre.model";
 import Movies, { MovieDocument } from "../model/movie.model";
-import Genres, { GenreDocument } from "../model/Genre.model";
-import TVShows, { TVShowsDocument } from "../model/TVShows.model";
+
 
 export const searchMovies = async (req: Request, res: Response) => {
 const query = req.query.q; // récupérer la requête de recherche de l'utilisateur
