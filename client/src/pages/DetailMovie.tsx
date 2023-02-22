@@ -6,30 +6,34 @@ import {
     Text,
     CircularProgress,
     CircularProgressLabel,
-    Button
+    Button,
+    Center
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { getOnemovie, getVideomovie } from "../redux/actions/moviesActions";
+import { getOnemovie } from "../redux/actions/moviesActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { BsHeartFill, BsHeart } from 'react-icons/bs';
 import { AiFillCaretRight } from 'react-icons/ai'
 import YouTube from 'react-youtube';
+import { getVideo } from "../api/movieApi";
 
 const DetailMovie = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const [trailer, setTrailer] = useState(null);
-
-    console.log(id)
+    const [trailer, setTrailer] = useState(null) as any;
     useEffect(() => {
+        const fetchmovie = async () => {
+            setTrailer(await getVideo(id))
+        }
         if (id) {
             dispatch(getOnemovie(id));
-            // dispatch(getVideomovie(id))
+            fetchmovie()
         }
     }, []);
 
-    const movieData = useSelector((state: any) => state.moviesData.movieData);
+    const movieData = useSelector((state: any) => state.Onemovie.movieData);
+    console.log(movieData)
     const onReady = (e: any) => {
         console.log(e.target);
     };
@@ -39,7 +43,7 @@ const DetailMovie = () => {
             width="100wh"
             height="100vh"
             bg={useColorModeValue('white', 'gray.800')}
-            background={`linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0, 0, 0, 0.5)),url(https://image.tmdb.org/t/p/original/${movieData.backdrop_path})`}
+            background={`linear-gradient(0deg, rgba(0,0,0,1), rgba(0, 0, 0, 0.5)),url(https://image.tmdb.org/t/p/original/${movieData.backdrop_path})`}
             backgroundSize="cover"
         >
             <Flex m={20} justifyContent='space-between' alignItems='flex-start' flexWrap="wrap" >
@@ -55,7 +59,9 @@ const DetailMovie = () => {
                             <CircularProgressLabel>{movieData.vote_average}</CircularProgressLabel>
                         </CircularProgress>
                         {movieData.genre_ids && movieData.genre_ids.map((el: any, i: number) => {
-                            return <Flex backgroundColor="red"
+                            return <Flex
+                                key={i}
+                                backgroundColor="red"
                                 color='white'
                                 borderRadius={20}
                                 m={1}
@@ -90,15 +96,23 @@ const DetailMovie = () => {
                     </Flex>
 
                 </Box>
-                <Box>
-                    <Text>Video</Text>
-                    {movieData.key ? <YouTube
-                        videoId={movieData.key} // defaults -> null
-                        onReady={onReady}
-                    /> : <Text></Text> }
-                    
-                </Box>
             </Flex>
+            <Box ml={20} mr={20}>
+                <Text>Video</Text>
+                {trailer ?
+                    <Center w={'100%'}>
+                    <YouTube
+                            videoId={trailer[0].key} // defaults -> null
+                            onReady={onReady}
+                        />
+                  </Center>
+                        
+                     : <Text>
+                        No video attached
+                    </Text>
+                }
+            </Box>
+
         </Flex>
     )
 }

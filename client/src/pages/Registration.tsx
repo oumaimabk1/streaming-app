@@ -23,7 +23,7 @@ const navigate = useNavigate();
     };
 
     const handleNext = () => {
-        console.log(formData)
+    
         setStep((prevStep) => prevStep + 1);
         
     };

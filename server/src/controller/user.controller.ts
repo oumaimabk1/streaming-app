@@ -60,7 +60,7 @@ export async function resetPassword(req: Request, res: Response) {
   });
 
   const resetUrl = `http://localhost:3000/ResetPassord/${token}`;
-  console.log(user.email)
+
   await transporter.sendMail({
     from: "your@email.com",
     // to: user.email,

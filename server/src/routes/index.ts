@@ -5,7 +5,7 @@ import { validateRequest, requiresUser } from "../middleware";
 import { createUserSchema, createUserSessionSchema } from "../shema/user.shema";
 import axios from "axios";
 import Movies from "../model/movie.model";
-import { getAllMovies, getOneMovie } from "../controller/movies.controller";
+import { filterAllMovies, getAllMovies, getOneMovie } from "../controller/movies.controller";
 import { getAllGenres, getGenresByIds } from "../controller/genre.controller";
 import { authMiddleware } from "../middleware/auth.middleware";
 import { addFavorite, getFavoritesByUser, removeFavorite } from "../controller/favorite.controller";
@@ -78,7 +78,7 @@ export default function (app: Express) {
   //TVShows
     app.get("api/tvShows", () => {
       for (let page = 1; page <= 5; page+=5) {
-        console.log(page)
+       
         axios.get('https://api.themoviedb.org/3/discover/tv', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page:page } })
           .then(response => {
             // Connect to the MongoDB cluster
@@ -86,7 +86,7 @@ export default function (app: Express) {
               // Insert the data into the collection
               TVShows.insertMany(response.data.results, function (err, result) {
                 if (err) throw err;
-                console.log(`documents inserted.`);
+              
               });
           })
           .catch(error => {
@@ -97,20 +97,6 @@ export default function (app: Express) {
 
    //get all tvShows
    app.get("/api/getAllTVShows", getAllTVShows);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   // Add a movie to favorites
@@ -131,7 +117,8 @@ export default function (app: Express) {
   // Get ratings for a movie
   app.get("/api/ratings/:movieId",authMiddleware, getMovieRating);
 
-  //Search
-  app.get("/api/search", authMiddleware, searchMovies);
-
+  //Search //j'ai anulte lemidelware pour le test
+  app.get("/api/search", searchMovies);
+  app.post("/api/searchmovies", filterAllMovies);
+  
 }

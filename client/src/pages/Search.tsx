@@ -6,6 +6,7 @@ import Button from "../components/Button/Button"
 
 export const Search = () => {
 
+    
     return (
         <Flex
             flexDirection="column"

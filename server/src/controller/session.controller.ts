@@ -19,8 +19,6 @@ export async function createUserSessionHandler(req: Request, res: Response) {
     console.log(page)
     axios.get('https://api.themoviedb.org/3/discover/tv', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page:page } })
       .then(response => {
-        // Connect to the MongoDB cluster
-        
           // Insert the data into the collection
           TVShows.insertMany(response.data.results, function (err, result) {
             if (err) throw err;
