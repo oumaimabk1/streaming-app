@@ -20,16 +20,16 @@ const Home = () => {
       flexDirection="column"
       minHeight="100vh"
       position="relative"
-      bgColor="black"
-      marginTop="0"
+      bgColor="#1B202B"
+      margin="0"
     >
-      <Heading textAlign="left" size="3xl" margin="4" color="white">
+      <Heading textAlign="left" size="3xl" margin="6" color="white">
         Welcome to Streamy, where there's a movie for every mood
       </Heading>
       <Text
         textAlign="left"
         color="white"
-        margin="4"
+        margin="6"
         fontSize="sm"
         justifyItems="center"
       >
@@ -41,15 +41,15 @@ const Home = () => {
         flexDirection="column"
         alignItems="center"
       >
-        <Button borderRadius="0" marginTop="3" marginBottom="3" width="93%" colorScheme='teal'>Log in</Button>
-        <Button borderRadius="0" marginTop="3" marginBottom="3" width="93%" colorScheme='black'>Sign up</Button>
+        <Button borderRadius="0" marginTop="6" marginBottom="3" width="93%" colorScheme='teal'>Log in</Button>
+        <Button borderRadius="0" marginTop="6" marginBottom="3" width="93%" color="#009594" colorScheme='black'>Sign up</Button>
       </Flex>
 
     <Center>
-     <VStack margin="3">
+     <VStack margin="6">
       <HStack>
-          <Heading size="xl" textAlign="center" color="white" marginTop="3">4206</Heading>
-          <Heading size="xl" textAlign="center" color="teal" marginTop="3">   +</Heading>
+          <Heading size="2xl" textAlign="center" color="white" marginTop="3">4206</Heading>
+          <Heading size="2xl" textAlign="center" color="teal" marginTop="3">   +</Heading>
         </HStack>
           <Text
             fontSize="xs"
@@ -60,10 +60,10 @@ const Home = () => {
           </Text>
       </VStack>
 
-      <VStack margin="3">
+      <VStack margin="6">
       <HStack>
-          <Heading size="xl" textAlign="center" color="white" marginTop="3">1615</Heading>
-          <Heading size="xl" textAlign="center" color="teal" marginTop="3">   +</Heading>
+          <Heading size="2xl" textAlign="center" color="white" marginTop="6">1615</Heading>
+          <Heading size="2xl" textAlign="center" color="teal" marginTop="6">   +</Heading>
         </HStack>
           <Text
             fontSize="xs"
@@ -75,7 +75,7 @@ const Home = () => {
       </VStack>
     </Center>
       
-      <Box color="white" position="absolute" bottom="0" width="100%">
+      <Box color="white" position="absolute" bottom="0" width="100%" marginTop="6">
         <Footer companyName="Streamy" creators={["Oumaima", "Zineb", "Nico"]} />
       </Box>
     </Flex>
