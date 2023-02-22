@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Movies, { MovieDocument } from "../model/movie.model";
 import Genres, { GenreDocument } from "../model/Genre.model";
+import TVShows, { TVShowsDocument } from "../model/TVShows.model";
 
 export const searchMovies = async (req: Request, res: Response) => {
 const query = req.query.q; // récupérer la requête de recherche de l'utilisateur
@@ -31,5 +32,5 @@ if (req.query.genre) {
         return res.status(404).json({ message: "No movies found." });
         }
         
-        return res.status(200).json(movies);
+        return res.status(200).json({ movies, size : movies.length});
 };

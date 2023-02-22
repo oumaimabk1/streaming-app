@@ -26,3 +26,16 @@ export async function getAllTVShows(req: any, res: Response) {
         res.sendStatus(500).send({ message: error.message });
     }
 };
+
+
+export async function getOneTVShow(req: any, res: Response) {
+    console.log(req.params)
+    try {
+        const id = req.params.id
+        const result = await TVShowsDocument.findOne({ id });
+        console.log(result)
+        res.json({ result });
+    } catch (error: any) {
+        res.sendStatus(500).send({ message: error.message });
+    }
+};

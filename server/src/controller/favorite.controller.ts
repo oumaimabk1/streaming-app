@@ -10,7 +10,7 @@ export async function addFavorite(req: Request, res: Response) {
 
         if (existingFavorite) {
             return res.status(409).json({
-                message: "This movie is already in the your favorites",
+                message: "This movie is already in your favorites",
             });
         }
 
@@ -24,7 +24,7 @@ export async function addFavorite(req: Request, res: Response) {
         await newFavorite.save();
 
         res.status(201).json({
-            message: "The movie has been added to the your favorites",
+            message: "The movie has been added to your favorites",
         });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
