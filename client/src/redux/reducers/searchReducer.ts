@@ -45,3 +45,34 @@ import {
         return state;
     }
   };
+
+
+  export const genreserieReducer = (
+    state = initialState,
+    action: any
+  ): GENREState => {
+    switch (action.type) {
+      case "GENRESerie_REQUEST":
+        return {
+          ...state,
+          loading: true,
+          error: null,
+        };
+      case "GENRESerie_SUCCESS":
+        return {
+          ...state,
+          loading: false,
+          categories: action.payload.categories,
+          error: null,
+        };
+      case "GENRESerie_FAILURE":
+        return {
+          ...state,
+          loading: false,
+          categories: null,
+          error: action.payload.message,
+        };
+      default:
+        return state;
+    }
+  };

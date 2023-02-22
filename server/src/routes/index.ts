@@ -11,7 +11,7 @@ import { addFavorite, getFavoritesByUser, removeFavorite } from "../controller/f
 import { addRating, getRatingsByUser, getMovieRating } from "../controller/rating.controller";
 import { filtreAndSearch } from "../controller/filtreAndSearch.controller";
 import TVShows from "../model/TVShows.model";
-import { getAllTVShows, getOneTVShow } from "../controller/TVShows.controller";
+import { filterAllSeries, getAllTVShows, getOneTVShow } from "../controller/TVShows.controller";
 import { filtreAndSearchTVShows } from "../controller/filterAndSearchTVShows.controller";
 import { getAllTVShowsGenres, getGenresTVShowsByIds } from "../controller/genreTVShow.controller";
 
@@ -43,9 +43,8 @@ export default function (app: Express) {
 
   //movie
   app.get("api/video", () => {
-    for (let page = 1; page <= 5000; page++) {
-      console.log(page)
-      axios.get('https://api.themoviedb.org/3/discover/movie', { params: { api_key: '6cc1df6659017d51dec12febc2690279', page: page } })
+  
+      axios.get('https://api.themoviedb.org/3/genre/tv/list', { params: { api_key: '6cc1df6659017d51dec12febc2690279' } })
         .then(response => {
           // Connect to the MongoDB cluster
           // Insert the data into the collection
@@ -59,7 +58,7 @@ export default function (app: Express) {
         .catch(error => {
           console.error(error);
         });
-    }
+    
   })
 
   //get all movies
@@ -82,7 +81,7 @@ export default function (app: Express) {
   app.get("/api/getAllTVShows", getAllTVShows);
 
   //get one TVShow
-  app.get("/api/getOneMovie/:id", getOneTVShow);
+  app.get("/api/getOneTVshow/:id", getOneTVShow);
 
   //get all genres TVShows
   app.get("/api/getAllTVShowsGenres", getAllTVShowsGenres);
@@ -91,7 +90,7 @@ export default function (app: Express) {
   app.get("/api/getGenresTVShowsByIds", getGenresTVShowsByIds);
 
   //Search TVShows
-  app.get("/api/filtreAndSearchTVShows", filtreAndSearchTVShows);
+  app.post("/api/SearchTVShows", filterAllSeries);
 
 
   // Add a movie to favorites

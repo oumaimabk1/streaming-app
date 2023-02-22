@@ -4,15 +4,19 @@ import { formReducer } from './reducers/formReducer';
 import { loginReducer } from './reducers/loginReducer';
 import { movieReducer, OnemovieReducer } from './reducers/moviesReducer';
 import passwordReducer from './reducers/resetpasswordReducer';
-import { genreReducer } from './reducers/searchReducer';
+import { genreReducer, genreserieReducer } from './reducers/searchReducer';
+import { OneserieReducer, serieReducer } from './reducers/seriesReducer';
 
 const rootReducer = combineReducers({
   registration: formReducer,
-  moviesData: movieReducer,
   login:loginReducer,
   passwordReducer:passwordReducer,
   genres:genreReducer,
-  Onemovie:OnemovieReducer
+  genresseries:genreserieReducer,
+  moviesData: movieReducer,
+  Onemovie:OnemovieReducer,
+  seriesData: serieReducer,
+  Oneserie:OneserieReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

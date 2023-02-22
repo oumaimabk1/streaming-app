@@ -37,3 +37,35 @@ export const genre = ():any => {
     }
   };
 };
+
+export const genreseries = ():any => {
+  return async (dispatch: Dispatch) => {
+    dispatch({
+      type: GENRE_REQUEST,
+    });
+
+    try {
+      const response = await fetch(`${url}api/getAllTVShowsGenres`);
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        dispatch({
+          type: "GENRESerie_SUCCESS",
+          payload: { categories: data.results },
+        });
+        
+      } else {
+        dispatch({
+          type: "GENRESerie_FAILURE",
+          payload: { error: data.message },
+        });
+      }
+    } catch (error:any) {
+      dispatch({
+        type: "GENRESerie_FAILURE",
+        payload: { error: error.message },
+      });
+    }
+  };
+};

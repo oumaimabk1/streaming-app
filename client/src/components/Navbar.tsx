@@ -21,7 +21,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { Link as L, Link } from 'react-router-dom'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-const Links = ['Home', 'Movies', 'Search'];
+const Links = ['Home', 'Movies','Series'];
 
 const NavLink = ({ children }: { children: any }) => (
     <Box px={2}
