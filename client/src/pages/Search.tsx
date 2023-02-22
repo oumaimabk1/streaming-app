@@ -11,10 +11,9 @@ export const Search = () => {
             flexDirection="column"
             width="100wh"
             height="100vh"
-            backgroundColor="gray.200"
+            backgroundColor="#1B202B"
             alignItems="center"
         >
-            {/* Search */}
             
             <HStack
                 margin="4"
@@ -26,11 +25,15 @@ export const Search = () => {
 
             <Input
               variant="outline"
-              borderColor="gray.500"
+              borderColor="gray.100"
               borderWidth="1.6px"
               placeholder="Search"
+<<<<<<< Updated upstream
               width="85%"
               textAlign="center"
+=======
+              width="93%"
+>>>>>>> Stashed changes
             />
 
 
