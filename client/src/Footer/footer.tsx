@@ -12,7 +12,7 @@ const Footer = ({ companyName, creators }: FooterProps): ReactElement => (
     py={4}
     bg="transparent"
     borderTopWidth={1}
-    borderTopColor="black"
+    borderTopColor="#1B202B"
   >
 
 <Flex align="center" justify="center" flexDirection="column">

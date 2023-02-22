@@ -8,10 +8,6 @@ import { Button, ButtonGroup } from '@chakra-ui/react';
 import { Center, Square, Circle } from '@chakra-ui/react';
 import { Stack, HStack, VStack } from '@chakra-ui/react';
 import Footer from "../Footer/footer";
-import jurassicpark from "../images/jurassicpark.jpg";
-import office from "../images/office.jpg";
-import starwars from "../images/starwars.jpg";
-import streamy from "../images/streamy.png";
 
 
 const Home = () => {
@@ -33,8 +29,7 @@ const Home = () => {
         fontSize="sm"
         justifyItems="center"
       >
-        Movies have the power of bringing people together, make them laugh,
-        love, cry, … It's our pleasure to bring those movies to you!
+        Discover and enjoy endless movies and TV shows on Streamy! From blockbusters to dramas, we have something for every genre lover. Sign up now to start streaming.
       </Text>
 
       <Flex
