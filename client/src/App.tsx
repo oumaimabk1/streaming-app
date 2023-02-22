@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Movies from './pages/Movies';
 import RegistrationForm from './pages/Registration';
-import Search from './pages/Search';
+import {Search} from './pages/Search';
 import ResetPassord from './pages/resetPassord';
 
 function App() {
