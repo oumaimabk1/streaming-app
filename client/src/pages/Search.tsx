@@ -28,16 +28,8 @@ export const Search = () => {
               borderColor="gray.100"
               borderWidth="1.6px"
               placeholder="Search"
-<<<<<<< Updated upstream
-              width="85%"
-              textAlign="center"
-=======
               width="93%"
->>>>>>> Stashed changes
             />
-
-
-
-        </Flex>
+            </Flex>
     );
 };
