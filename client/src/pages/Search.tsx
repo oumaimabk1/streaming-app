@@ -30,7 +30,6 @@ export const Search = () => {
               borderWidth="1.6px"
               placeholder="Search"
               width="85%"
-              textAlign="center"
             />
 
 

@@ -1,4 +1,6 @@
 import { Flex } from "@chakra-ui/react";
+import { Box } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/react'
 import { Text } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
@@ -13,40 +15,64 @@ import streamy from "../images/streamy.svg";
 const Home = () => {
   return (
     <Flex
-      flexDirection="row"
-      width="100vw"
-      height="100vh"
-      backgroundColor="gray.200"
-      alignItems="top right"
-      justifyContent="flex-end"
+      flexDirection="column"
+      minHeight="100vh"
+      position="relative"
+      bgColor="black"
     >
-      <Button btnText="Log in" />
-      <Button btnText="Sign up" />
-      <Flex
-        flexDirection="column"
-        width="100vw"
-        backgroundColor="gray.200"
-        justifyContent="center"
-        padding="1rem"
+      <Heading textAlign="left" size="2xl" margin="4" color="white">
+        Welcome to Streamy, where there's a movie for every mood
+      </Heading>
+      <Text
+        textAlign="left"
+        color="white"
+        margin="4"
+        fontSize="sm"
+        justifyItems="flex-start"
       >
-        
-        <Text mb="0">Welcome to</Text>
+        Movies have the power of bringing people together, make them laugh,
+        love, cry, … It's our pleasure to bring those movies to you!
+      </Text>
 
-        <Image src={streamy} alt="Streamy logo" h="8rem" m="6"/>
-
-        <Heading>Streamy</Heading>
-        <br /><br />
-        <Text>Home of ALL the movies</Text>
-        <br /><br />
-        <Text>Welcome to Streamy, where you can discover and enjoy all the movies and TV shows (and we really mean ALL of them) from around the world. With our easy-to-use interface and extensive library, you can dive into your favorite genres or explore new ones. From action-packed blockbusters to heartwarming dramas, we have something for everyone. And with new titles added regularly, you'll always have something new to watch. Sign up now and start streaming!</Text>
-        
-        <Flex justifyContent="center" marginTop="1rem">
-          <Image src={starwars} alt="Star Wars" h="16rem" m="6"/>
-          <Image src={jurassicpark} alt="Jurassic Park" h="16rem" m="6"/>
-          <Image src={office} alt="The Office" h="16rem" m="6"/>
-        </Flex>
-        <Footer companyName="Streamy" creators={['Oumaima', 'Zineb', 'Nico']} />
+      <Flex flexDirection="column">
+        <Button btnText="Log in" />
+        <Button btnText="Sign up" />
       </Flex>
+
+      <Flex flexDirection="row" justifyItems="center">
+        <Box>
+          <Heading size="l" textAlign="center" color="white" margin="4" marginBottom="0">
+            6150 +
+          </Heading>
+          <Text
+            fontSize="xs"
+            textAlign="left"
+            color="white"
+            marginLeft="4"
+            marginTop="0"
+          >
+            Movies you can enjoy
+          </Text>
+        </Box>
+
+        <Box>
+          <Heading size="l" textAlign="center" color="white" margin="4" marginBottom="0">
+            4206 +
+          </Heading>
+          <Text
+            fontSize="xs"
+            textAlign="left"
+            color="white"
+            marginLeft="4"
+            marginTop="0"
+          >
+            Critically acclaimed directors and screenwriters
+          </Text>
+        </Box>
+      </Flex>
+      <Box color="white" position="absolute" bottom="0" width="100%">
+        <Footer companyName="Streamy" creators={["Oumaima", "Zineb", "Nico"]} />
+      </Box>
     </Flex>
   );
 };
