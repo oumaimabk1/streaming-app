@@ -9,7 +9,9 @@ import { getAllMovies, getOneMovie } from "../controller/movies.controller";
 import { getAllGenres, getGenresByIds } from "../controller/genre.controller";
 import { addFavorite, getFavoritesByUser, removeFavorite } from "../controller/favorite.controller";
 import { addRating, getRatingsByUser, getMovieRating } from "../controller/rating.controller";
-import { searchMovies, searchTVShows } from "../controller/search.controller";
+import { searchMovies } from "../controller/search.controller";
+import { filtreAndSearch } from "../controller/filtreAndSearch.controller";
+
 import TVShows from "../model/TVShows.model";
 import { getAllTVShows } from "../controller/TVShows.controller";
 
@@ -94,37 +96,9 @@ export default function (app: Express) {
       }
     })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
    //get all tvShows
    app.get("/api/getAllTVShows", getAllTVShows);
-
-
 
 
   // Add a movie to favorites
@@ -147,6 +121,9 @@ export default function (app: Express) {
 
   //Search
   app.get("/api/searchMovies", searchMovies);
-  app.get("/api/searchTVShows", searchTVShows);
+  app.get("/api/filtreAndSearch",  filtreAndSearch);
+
+
+
 
 }

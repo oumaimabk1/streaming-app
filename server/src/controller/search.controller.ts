@@ -32,7 +32,7 @@ if (req.query.genre) {
         return res.status(404).json({ message: "No movies found." });
         }
         
-        return res.status(200).json(movies);
+        return res.status(200).json({ movies, size : movies.length});
 };
 
 
