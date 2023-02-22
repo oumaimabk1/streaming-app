@@ -4,12 +4,14 @@ import { Container } from '@chakra-ui/react'
 import { Text } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
-import Button from "../components/Button/Button";
+import { Button, ButtonGroup } from '@chakra-ui/react';
+import { Center, Square, Circle } from '@chakra-ui/react';
+import { Stack, HStack, VStack } from '@chakra-ui/react';
 import Footer from "../Footer/footer";
 import jurassicpark from "../images/jurassicpark.jpg";
 import office from "../images/office.jpg";
 import starwars from "../images/starwars.jpg";
-import streamy from "../images/streamy.svg";
+import streamy from "../images/streamy.png";
 
 
 const Home = () => {
@@ -19,8 +21,9 @@ const Home = () => {
       minHeight="100vh"
       position="relative"
       bgColor="black"
+      marginTop="0"
     >
-      <Heading textAlign="left" size="2xl" margin="4" color="white">
+      <Heading textAlign="left" size="3xl" margin="4" color="white">
         Welcome to Streamy, where there's a movie for every mood
       </Heading>
       <Text
@@ -28,48 +31,50 @@ const Home = () => {
         color="white"
         margin="4"
         fontSize="sm"
-        justifyItems="flex-start"
+        justifyItems="center"
       >
         Movies have the power of bringing people together, make them laugh,
         love, cry, … It's our pleasure to bring those movies to you!
       </Text>
 
-      <Flex flexDirection="column">
-        <Button btnText="Log in" />
-        <Button btnText="Sign up" />
+      <Flex
+        flexDirection="column"
+        alignItems="center"
+      >
+        <Button borderRadius="0" marginTop="3" marginBottom="3" width="93%" colorScheme='teal'>Log in</Button>
+        <Button borderRadius="0" marginTop="3" marginBottom="3" width="93%" colorScheme='black'>Sign up</Button>
       </Flex>
 
-      <Flex flexDirection="row" justifyItems="center">
-        <Box>
-          <Heading size="l" textAlign="center" color="white" margin="4" marginBottom="0">
-            6150 +
-          </Heading>
+    <Center>
+     <VStack margin="3">
+      <HStack>
+          <Heading size="xl" textAlign="center" color="white" marginTop="3">4206</Heading>
+          <Heading size="xl" textAlign="center" color="teal" marginTop="3">   +</Heading>
+        </HStack>
           <Text
             fontSize="xs"
             textAlign="left"
             color="white"
-            marginLeft="4"
-            marginTop="0"
           >
-            Movies you can enjoy
+            Movies you can enjoy <br></br> anytime, anywhere
           </Text>
-        </Box>
+      </VStack>
 
-        <Box>
-          <Heading size="l" textAlign="center" color="white" margin="4" marginBottom="0">
-            4206 +
-          </Heading>
+      <VStack margin="3">
+      <HStack>
+          <Heading size="xl" textAlign="center" color="white" marginTop="3">1615</Heading>
+          <Heading size="xl" textAlign="center" color="teal" marginTop="3">   +</Heading>
+        </HStack>
           <Text
             fontSize="xs"
-            textAlign="left"
+            textAlign="center"
             color="white"
-            marginLeft="4"
-            marginTop="0"
           >
-            Critically acclaimed directors and screenwriters
+            Critically acclaimed <br></br> directors and screenwriters
           </Text>
-        </Box>
-      </Flex>
+      </VStack>
+    </Center>
+      
       <Box color="white" position="absolute" bottom="0" width="100%">
         <Footer companyName="Streamy" creators={["Oumaima", "Zineb", "Nico"]} />
       </Box>

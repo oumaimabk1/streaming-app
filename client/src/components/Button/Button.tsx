@@ -7,7 +7,7 @@ type ButtonProps = {
 const Button = ({btnText, isActive }: ButtonProps ) => {
 
     return (
-        <ChButton borderRadius="none" height="8" width="80%" margin="4" bgColor="#6CD13F" size="lg" colorScheme='black' variant={isActive ? "solid" : "outline"}>{btnText}</ChButton>
+        <ChButton borderRadius="none" height="8" width="80%" margin="4" bgColor="teal" size="lg" colorScheme='black' variant={isActive ? "solid" : "outline"}>{btnText}</ChButton>
     );
 };
 
