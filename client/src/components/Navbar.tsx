@@ -13,9 +13,11 @@ import {
     useColorModeValue,
     useColorMode,
 } from '@chakra-ui/react';
+import { Image } from '@chakra-ui/react'
 import { Link as L } from 'react-router-dom'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import streamy from "../images/streamy.png";
 const Links = ['Home', 'Movies', 'Search'];
 
 const NavLink = ({ children }: { children: ReactNode }, key: string) => (
@@ -49,7 +51,9 @@ export default function Navbar() {
                     onClick={isOpen ? onClose : onOpen}
                 />
                 <HStack spacing={8} alignItems={'center'}>
-                    <Box>Logo</Box>
+                <Box>
+                    <Image height="12" src={streamy} alt='Streamy Logo' />
+                </Box>
                     <HStack
                         as={'nav'}
                         spacing={4}
@@ -79,12 +83,9 @@ export default function Navbar() {
                                 }
                             />
                         </MenuButton>
-
                     </Menu>
                 </Flex>
             </Flex>
-
-          
         </Box>
     );
 }
