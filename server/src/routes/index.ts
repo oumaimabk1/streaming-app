@@ -96,11 +96,12 @@ export default function (app: Express) {
   app.post("/api/addFavoriteMovie", addFavoriteMovie);
   app.post("/api/addFavoriteTVShow", addFavoriteTVShow);
 
+
   // Get favorites by user id
-  app.post("/api/getFavoritesByUser", getFavoritesByUser);
+  app.get("/api/getFavoritesByUser/:userId", getFavoritesByUser);
 
   // Remove a movie from favorites
-  app.delete("/api/favorites", authenticate, removeFavorite);
+  app.delete("/api/removeFavorite", removeFavorite);
 
   
 

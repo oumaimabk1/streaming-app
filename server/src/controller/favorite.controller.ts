@@ -66,7 +66,6 @@ export async function addFavoriteTVShow(req: Request, res: Response) {
 export async function getFavoritesByUser(req: Request, res: Response) {
     try {
         const { userId } = req.params;
-        console.log(userId)
 
         const result = await Favorite.aggregate([
             {
@@ -76,16 +75,18 @@ export async function getFavoritesByUser(req: Request, res: Response) {
             {
                 $group: {
                     _id: "$user",
-                    movieIds: { $push: "$movie" }
+                    movieIds: { $push: "$movie" },
+                    tvShowIds: { $push: "$tvShow" }
+
                 }
-            }])
+            } ])
 
         res.status(200).json({ result });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }
 }
-
+/*
 export async function removeFavorite(req: Request, res: Response) {
     try {
         const { user, movie } = req.body;
@@ -96,6 +97,35 @@ export async function removeFavorite(req: Request, res: Response) {
         res.json({
             message: "The movie has been removed from the user's favorites",
         });
+    } catch (error: any) {
+        res.status(500).json({ message: error.message });
+    }
+}*/
+
+export async function removeFavorite(req: Request, res: Response) {
+    try {
+        const { user, movie, tvShow } = req.body;
+
+        if (movie) {
+            // Supprime le document Favorite correspondant au film
+            await Favorite.findOneAndDelete({ user, movie });
+
+            res.json({
+                message: "The movie has been removed from the user's favorites",
+            });
+        } else if (tvShow) {
+            // Supprime le document Favorite correspondant à la série TV
+            await Favorite.findOneAndDelete({ user, tvShow });
+
+            res.json({
+                message: "The TVShow has been removed from the user's favorites",
+            });
+        } else {
+            // Si ni le film ni la série TV n'a été spécifié dans la requête
+            return res.status(400).json({
+                message: "Please provide either a movie or tvShow to remove from favorites",
+            });
+        }
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }

@@ -7,8 +7,8 @@ import { TVShowsDocument } from "./TVShows.model";
 export interface FavoriteDocument extends mongoose.Document {
     user: UserDocument["_id"];
     movie: MovieDocument["_id"];
-    tvShow: TVShowsDocument["_id"];
-    
+   // tvShow: TVShowsDocument["_id"];
+   
 }
 
 const FavoriteSchema = new mongoose.Schema(
@@ -18,8 +18,16 @@ const FavoriteSchema = new mongoose.Schema(
             ref: "User",
             required: true,
         },
-        movie:[],
-        tvShow: [],
+        movie: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Movie",
+           
+        },
+        tvShow: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "TVShow",
+         
+        },
     },
     { timestamps: true }
 );
