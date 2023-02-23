@@ -9,8 +9,6 @@ import { filterAllMovies, getAllMovies, getOneMovie } from "../controller/movies
 import { getAllGenres, getGenresByIds } from "../controller/genre.controller";
 import { addFavoriteMovie, addFavoriteTVShow, getFavoritesByUser, removeFavorite } from "../controller/favorite.controller";
 import { addRating, getRatingsByUser, getMovieRating } from "../controller/rating.controller";
-
-import TVShows from "../model/TVShows.model";
 import { filterAllSeries, getAllTVShows, getOneTVShow } from "../controller/TVShows.controller";
 import { getAllTVShowsGenres, getGenresTVShowsByIds } from "../controller/genreTVShow.controller";
 
@@ -113,12 +111,5 @@ export default function (app: Express) {
 
   // Get ratings for a movie
   app.get("/api/ratings/:movieId", authenticate, getMovieRating);
-
-
-
-
-
-
-
 
 }

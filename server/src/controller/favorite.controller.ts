@@ -61,8 +61,6 @@ export async function addFavoriteTVShow(req: Request, res: Response) {
     }
 }
 
-
-
 export async function getFavoritesByUser(req: Request, res: Response) {
     try {
         const { userId } = req.params;
@@ -86,21 +84,6 @@ export async function getFavoritesByUser(req: Request, res: Response) {
         res.status(500).json({ message: error.message });
     }
 }
-/*
-export async function removeFavorite(req: Request, res: Response) {
-    try {
-        const { user, movie } = req.body;
-
-        // Supprime le document Favorite correspondant
-        await Favorite.findOneAndDelete({ user, movie });
-
-        res.json({
-            message: "The movie has been removed from the user's favorites",
-        });
-    } catch (error: any) {
-        res.status(500).json({ message: error.message });
-    }
-}*/
 
 export async function removeFavorite(req: Request, res: Response) {
     try {

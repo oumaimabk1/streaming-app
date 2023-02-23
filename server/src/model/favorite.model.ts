@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { UserDocument } from "./user.model";
 import { MovieDocument } from "./movie.model";
-import { TVShowsDocument } from "./TVShows.model";
 
 // Spécifie les propriétés requises pour un document de favori.
 export interface FavoriteDocument extends mongoose.Document {
