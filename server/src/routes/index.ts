@@ -99,11 +99,7 @@ export default function (app: Express) {
 
   // Get favorites by user id
   app.post("/api/getFavoritesByUser", getFavoritesByUser);
-  // Add a movie to favorites
-  app.post("/api/favorites", authenticate, addFavorite);
 
-  // Get favorites by user id
-  app.get("/api/favorites/:userId", getFavoritesByUser);
 
   // Remove a movie from favorites
   app.delete("/api/favorites", authenticate, removeFavorite);
