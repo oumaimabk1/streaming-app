@@ -1,4 +1,4 @@
-import { Box, Center, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { HStack } from '@chakra-ui/react';
 import { Input } from '@chakra-ui/react';
 
@@ -12,17 +12,18 @@ export const Search = () => {
             flexDirection="column"
             width="100wh"
             height="100vh"
-            backgroundColor="gray.200"
+            bg="Teal 200"
             alignItems="center"
         >
-            {/* Search */}
             
             <HStack
                 margin="4"
             >
                 <Button isActive={true} btnText="Movies"  />
-                <Button isActive={false} btnText="TV"  />
-                <Button isActive={false} btnText="People"  />
+                <Button isActive={true} btnText="TV"  />
+                <Button isActive={true} btnText="Actors"  />
+                <Button isActive={true} btnText="Directors"  />
+                <Button isActive={true} btnText="Genres"  />
             </HStack>
 
             <Input
