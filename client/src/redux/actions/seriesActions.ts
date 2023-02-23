@@ -20,9 +20,15 @@ export const clearSERIESData = (): any => {
 };
 // Step 1: Define an action that will make the API request
 export const getOneSERIES = (id: string): any => {
+  
   return async (dispatch: any) => {
+    dispatch({ type: 'ONE_SERIES_CLEAR' });
     const response = await axios.get(`${url}api/getOneTVshow/${id}`);
     console.log(response)
-    dispatch({ type: 'ONE_SERIES_RECEIVED', payload: response.data.result });
+  
+    if(response){
+      dispatch({ type: 'ONE_SERIES_RECEIVED', payload: response.data.result });
+    }
+   
   };
 };

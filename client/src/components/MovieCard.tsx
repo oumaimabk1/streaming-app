@@ -69,7 +69,7 @@ function MovieCard({ data ,click}: MovieCardProps) {
       </CircularProgress>
       <Image
         src={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
-        alt={`Picture of ${data.title || data.name}`}
+        alt={`Picture of ${data.name || data.title}`}
         roundedTop="lg"
       />
 
@@ -82,7 +82,7 @@ function MovieCard({ data ,click}: MovieCardProps) {
             as="h4"
             lineHeight="tight"
             isTruncated>
-            {data.title}
+            {data.name || data.title }
           </Box>
           <Flex
             p={4}
