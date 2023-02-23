@@ -17,6 +17,7 @@ import { BsHeartFill, BsHeart } from 'react-icons/bs';
 import { AiFillCaretRight } from 'react-icons/ai'
 import YouTube from 'react-youtube';
 import { getVideo } from "../api/movieApi";
+import { url } from "../redux/actions/apiUrl";
 
 const DetailMovie = () => {
     const dispatch = useDispatch();
@@ -37,6 +38,18 @@ const DetailMovie = () => {
     const onReady = (e: any) => {
         console.log(e.target);
     };
+    const handleClick = async ()=>{
+        let user =localStorage.getItem('userId');
+        const response = await fetch(`${url}api/addFavoriteMovie`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user,movie : movieData._id}),
+          });
+          console.log(response)
+          if(response){
+            setLiked(!liked)
+          }
+    }
     const [liked, setLiked] = useState(false); return (
         <Flex
             flexDirection="column"
@@ -78,7 +91,7 @@ const DetailMovie = () => {
                             justifyContent={'space-between'}
                             roundedBottom={'sm'}
                             cursor="pointer"
-                            onClick={() => setLiked(!liked)}>
+                            onClick={handleClick}>
                             {liked ? (
                                 <BsHeartFill fill="red" fontSize={'24px'} />
                             ) : (

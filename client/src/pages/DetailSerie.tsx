@@ -16,8 +16,9 @@ import { useParams } from "react-router-dom";
 import { BsHeartFill, BsHeart } from 'react-icons/bs';
 import { AiFillCaretRight } from 'react-icons/ai'
 import YouTube from 'react-youtube';
-import { getVideo } from "../api/movieApi";
+import { getTvShow, getVideo } from "../api/movieApi";
 import { getOneSERIES } from "../redux/actions/seriesActions";
+import { url } from "../redux/actions/apiUrl";
 
 const Detailserie = () => {
     const dispatch = useDispatch();
@@ -25,20 +26,33 @@ const Detailserie = () => {
     const [trailer, setTrailer] = useState(null) as any;
     useEffect(() => {
         const fetchserie = async () => {
-            setTrailer(await getVideo(id))
+            setTrailer(await getTvShow(id))
         }
         if (id) {
             dispatch(getOneSERIES(id));
             fetchserie()
         }
-    }, []);
-
+    }, [id,dispatch]);
+   
     const serieData = useSelector((state: any) => state.Oneserie.serieData);
     console.log(serieData)
+    const handleClick = async ()=>{
+        let user =localStorage.getItem('userId');
+        const response = await fetch(`${url}api/addFavoriteTVShow`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user,movie : serieData._id}),
+          });
+          console.log(response)
+          if(response){
+            setLiked(!liked)
+          }
+    }
     const onReady = (e: any) => {
         console.log(e.target);
     };
     const [liked, setLiked] = useState(false); return (
+        
         <Flex
             flexDirection="column"
             width="100wh"
@@ -47,12 +61,12 @@ const Detailserie = () => {
             background={`linear-gradient(0deg, rgba(0,0,0,1), rgba(0, 0, 0, 0.5)),url(https://image.tmdb.org/t/p/original/${serieData.backdrop_path})`}
             backgroundSize="cover"
         >
-            <Flex m={20} justifyContent='space-between' alignItems='flex-start' flexWrap="wrap" >
+          {serieData &&   <Flex m={20} justifyContent='space-between' alignItems='flex-start' flexWrap="wrap" >
                 <Box flex="1 1 30%" m={3}>
                     <Image src={`https://image.tmdb.org/t/p/original/${serieData.poster_path}`} height="600px" />
                 </Box>
-                <Box flex="2 1 60%" m={3}>
-                    <Text textAlign='left' fontSize="4xl" fontWeight='bold'>{serieData.title}</Text>
+                 <Box flex="2 1 60%" m={3}>
+                    <Text textAlign='left' fontSize="4xl" fontWeight='bold'>{serieData.name}</Text>
 
                     <Flex mt={10}>
                         <CircularProgress mr={5} value={serieData.vote_average * 10} color='green.400'
@@ -68,7 +82,7 @@ const Detailserie = () => {
                                 m={1}
                                 p={1}
                                 alignItems="center"
-                            >Drama</Flex>
+                            >{el}</Flex>
                         })}
                     </Flex>
                     <Text mt={20} textAlign='left' fontSize="l">{serieData.overview}</Text>
@@ -79,7 +93,7 @@ const Detailserie = () => {
                             justifyContent={'space-between'}
                             roundedBottom={'sm'}
                             cursor="pointer"
-                            onClick={() => setLiked(!liked)}>
+                            onClick={handleClick}>
                             {liked ? (
                                 <BsHeartFill fill="red" fontSize={'24px'} />
                             ) : (
@@ -97,7 +111,7 @@ const Detailserie = () => {
                     </Flex>
 
                 </Box>
-            </Flex>
+            </Flex>}
             <Box ml={20} mr={20}>
                 <Text>Video</Text>
                 {trailer ?
@@ -110,11 +124,12 @@ const Detailserie = () => {
                         
                      : <Text>
                         No video attached
-                    </Text>
-                }
+                    </Text>}
+                
             </Box>
 
         </Flex>
+        
     )
 }
 

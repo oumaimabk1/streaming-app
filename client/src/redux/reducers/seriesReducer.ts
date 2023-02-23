@@ -30,6 +30,8 @@ export const OneserieReducer = (state = initialserie, action: any) => {
     switch (action.type) {
         case 'ONE_SERIES_RECEIVED':
             return { serieData: action.payload };
+        case "ONE_SERIES_CLEAR":
+             return { serieData: {} }
         default:
             return state;
     }

@@ -1,5 +1,5 @@
 import { Express, Request, Response } from "express";
-import { createUserHandler, resetPassword, updatePassword, Verifytoken } from "../controller/user.controller";
+import { createUserHandler, me, resetPassword, updatePassword, Verifytoken } from "../controller/user.controller";
 import { createUserSessionHandler, invalidateUserSessionHandler, getUserSessionsHandler } from "../controller/session.controller";
 import { validateRequest, requiresUser, authenticate } from "../middleware";
 import { createUserSchema, createUserSessionSchema } from "../shema/user.shema";
@@ -40,22 +40,22 @@ export default function (app: Express) {
 
   //movie
   app.get("api/video", () => {
-  
-      axios.get('https://api.themoviedb.org/3/genre/tv/list', { params: { api_key: '6cc1df6659017d51dec12febc2690279' } })
-        .then(response => {
-          // Connect to the MongoDB cluster
-          // Insert the data into the collection
-          Movies.insertMany(response.data.results, function (err, result) {
-            if (err) throw err;
-            console.log(`documents inserted.`);
 
-          });
+    axios.get('https://api.themoviedb.org/3/genre/tv/list', { params: { api_key: '6cc1df6659017d51dec12febc2690279' } })
+      .then(response => {
+        // Connect to the MongoDB cluster
+        // Insert the data into the collection
+        Movies.insertMany(response.data.results, function (err, result) {
+          if (err) throw err;
+          console.log(`documents inserted.`);
 
-        })
-        .catch(error => {
-          console.error(error);
         });
-    
+
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
   })
 
   //get all movies
