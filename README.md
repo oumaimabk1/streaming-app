@@ -8,11 +8,11 @@ Ever thought you paid too much for subscriptions to several streaming platforms?
 
 With a clever combination of:
 
-- [Tailwind](https://tailwindcss.com)
+- [Chakra](https://chakra-ui.com)
 - [React](https://reactjs.org)
 - [Typescript](https://www.typescriptlang.org)
 - [Node.js](https://nodejs.org/en/)
 - [MongoDB](https://www.mongodb.com)
 - [Express](https://expressjs.com/)
 
-We had Nico as a front-end developer, and Oumaima and Zineb as back-end developers.
+We had Oumaima and Zineb as back-end developers, and Nico as a front-end developer.
