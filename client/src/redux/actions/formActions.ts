@@ -20,7 +20,7 @@ export function resetFormData() {
 }
 
 export function submitForm(formData: FormData):any {
-console.log(formData)
+
  return async (dispatch:  any) => {
     try {
       const response = await fetch(`${url}api/users`, {
@@ -30,7 +30,7 @@ console.log(formData)
         },
         body: JSON.stringify(formData),
       });
-      console.log(response)
+      
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message);

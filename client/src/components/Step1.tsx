@@ -7,7 +7,7 @@ const CFaLock = chakra(FaLock);
 
 
 export const Step1 = ({ formData, handleChange, handleNext }: any) => {
-    console.log('step1',formData)
+  
     const [showPassword, setShowPassword] = useState(false);
     const handleShowClick = () => setShowPassword(!showPassword);
     return (

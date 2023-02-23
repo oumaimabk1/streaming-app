@@ -1,9 +1,10 @@
-import GenreDocument from '../model/genre.model';
+
 import { Request, Response } from 'express';
+import Genres from '../model/genre.model';
 
 export async function getAllGenres(req: Request, res: Response) {
 try {
-const results = await GenreDocument.find();
+const results = await Genres.find();
 res.json({ results });
 } catch (error: any) {
 res.status(500).send({ message: error.message });
@@ -15,7 +16,7 @@ res.status(500).send({ message: error.message });
 export async function getGenreById(req: Request, res: Response) {
 try {
 const genreId = req.params.id;
-const genre = await GenreDocument.findById(genreId);
+const genre = await Genres.findById(genreId);
 
 if (!genre) {
     return res.status(404).send({ message: "Genre not found" });
@@ -34,7 +35,7 @@ export async function getGenresByIds(req: Request, res: Response) {
     try {
     const genreIds = req.body.genreIds;
 
-    const genres = await GenreDocument.find({ _id: { $in: genreIds } }); // $in (opérateur mongoose) Récupère les genres correspondants aux identifiants passés dans le tableau
+    const genres = await Genres.find({ _id: { $in: genreIds } }); // $in (opérateur mongoose) Récupère les genres correspondants aux identifiants passés dans le tableau
 
 res.json({ genres });
 

@@ -20,7 +20,7 @@ export const login = (email: string, password: string):any => {
       });
 
       const data = await response.json();
-      console.log(data)
+      
       if (response.ok) {
         dispatch({
           type: LOGIN_SUCCESS,

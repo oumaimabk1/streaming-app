@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import Favorite, { FavoriteDocument } from "../model/favorite.model";
+import mongoose from "mongoose";
+const { ObjectId } = mongoose.Types;
+
 
 export async function addFavoriteMovie(req: Request, res: Response) {
     try {
@@ -62,15 +65,22 @@ export async function addFavoriteTVShow(req: Request, res: Response) {
 
 export async function getFavoritesByUser(req: Request, res: Response) {
     try {
-        const { userId } = req.body;
+        const { userId } = req.params;
+        console.log(userId)
 
-        // Récupère les favoris de l'utilisateur spécifié
-        const favorites = await Favorite.find({ user: userId }).populate([
-            { path: 'movie' },
-            { path: 'tvShow' }
-          ]);
+        const result = await Favorite.aggregate([
+            {
+                $match:
+                    { user: new ObjectId(userId) }
+            },
+            {
+                $group: {
+                    _id: "$user",
+                    movieIds: { $push: "$movie" }
+                }
+            }])
 
-        res.json(favorites);
+        res.status(200).json({ result });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }

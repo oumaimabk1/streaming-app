@@ -13,6 +13,7 @@ import { movieTypes } from '../redux/types';
 import { useNavigate } from 'react-router-dom';
 interface MovieCardProps {
   data: movieTypes;
+  click : (e:any)=> void;
 }
 interface RatingProps {
   rating: number;
@@ -44,8 +45,8 @@ function Rating({ rating }: RatingProps) {
   );
 }
 
-function MovieCard({ data }: MovieCardProps) {
-  const navigate = useNavigate();
+function MovieCard({ data ,click}: MovieCardProps) {
+ 
   const [liked, setLiked] = useState(false);
 
   return (
@@ -68,7 +69,7 @@ function MovieCard({ data }: MovieCardProps) {
       </CircularProgress>
       <Image
         src={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
-        alt={`Picture of ${data.title}`}
+        alt={`Picture of ${data.title || data.name}`}
         roundedTop="lg"
       />
 
@@ -119,7 +120,7 @@ function MovieCard({ data }: MovieCardProps) {
           display="flex"
           alignItems="center"
           justifyContent="center"
-          onClick={()=>navigate(`/Movie/${data.id}`) }
+          onClick={()=>click(data.id)}
         >
         
         <FaYoutube size={50} color="red" />

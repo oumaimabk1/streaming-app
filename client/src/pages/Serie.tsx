@@ -3,55 +3,61 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import FilterComponent from "../components/filtermovies";
+import FilterSerieComponent from "../components/filterseries";
 import ProductAddToCart from "../components/MovieCard";
 import MovieCard from "../components/MovieCard";
-import { clearMovieData, fetchMOVIEData } from "../redux/actions/moviesActions";
+import { clearSERIESData, fetchSERIESData } from "../redux/actions/seriesActions";
 import { movieTypes } from "../redux/types";
 
-const Movies = () => {
+const Serie = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(clearMovieData());
+    dispatch(clearSERIESData());
   }, [location]);
-  const displayfilms =(page:any,title: string = "", genre_ids: any[] = [])=>{
-    console.log('de film',title)
-    dispatch(fetchMOVIEData(page,10,title,genre_ids));
+  const displaytvs =(page:any,name: string = "", genre_ids: any[] = [])=>{
+    console.log('de serie',name)
+    dispatch(fetchSERIESData(page,10,name,genre_ids));
   }
+  const serieData = useSelector((state: any) => state.seriesData.serieData) as any[];
+  console.log(serieData);
   useEffect(() => {
-    displayfilms(page)
+    displaytvs(page);
+    if(serieData){
+      setIsLoading(false)
+    }
   }, [page,dispatch]);
 
   const handleLoadMore = () => {
     setPage(page + 1);
   };
-  const movieData = useSelector((state: any) => state.moviesData.movieData) as any[];
-  console.log(movieData);
+ 
   return (
+    <>
+    {!isLoading ?
     <Flex m={4} justifyContent="space-between" flexWrap="wrap">
       <Card borderRadius='5px' w={{ base: "100%", md: "30%" }} position={{ base: "initial", md: "sticky" }} top={{ base: "initial", md: "0" }}>
-        <FilterComponent page={page} onclick={displayfilms}/>
+        <FilterSerieComponent page={page} onclick={displaytvs}/>
       </Card>
 
       <SimpleGrid columns={[1, 2, 3]} spacing="1" w={{ base: "100%", md: "70%" }}>
-        {movieData.map((el: movieTypes, index: number) => {
+        {serieData.map((el: movieTypes, index: number) => {
           return <MovieCard key={index} data={el} click={function (id: any): void {
-            navigate(`/Movie/${id}`);
+            navigate(`/Serie/${id}`);
           } } />;
         })}
-     
-        <Button onClick={handleLoadMore}>Load more movies</Button>
-        
-        
+        <Button onClick={handleLoadMore}>Load more series</Button>
       </SimpleGrid>
     </Flex>
+   : <>Series loading ....</>}
+   </>
   );
 };
 
-export default Movies;
+export default Serie;
 
 

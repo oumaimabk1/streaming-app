@@ -16,7 +16,7 @@ export const sendResetPasswordEmail = (email: string):any => {
       });
 
       const data = await response.json();
-      console.log(data)
+  
       if (response.ok) {
         dispatch({ type: 'RESET_PASSWORD_EMAIL_SENT', payload: data });
         
@@ -44,7 +44,7 @@ export const updatePasswordEmail = (password: string,token:any):any => {
       });
 
       const data = await response.json();
-      console.log('update',data)
+     
       if (response.ok) {
         dispatch({ type: 'UPDATE_PASSWORD_EMAIL_SENT', payload: data });
         

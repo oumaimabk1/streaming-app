@@ -4,7 +4,7 @@ import {
     Flex,
     Avatar,
     HStack,
-    Link,
+    MenuList,
     IconButton,
     Button,
     Menu,
@@ -12,11 +12,16 @@ import {
     useDisclosure,
     useColorModeValue,
     useColorMode,
+    MenuItem,
+    MenuDivider,
+    Text
 } from '@chakra-ui/react';
-import { Link as L } from 'react-router-dom'
+import { FaSignOutAlt } from "react-icons/fa";
+import { AiFillHeart } from "react-icons/ai";
+import { Link as L, Link } from 'react-router-dom'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-const Links = ['Home', 'Movies', 'Search'];
+const Links = ['Home', 'Movies','Series'];
 
 const NavLink = ({ children }: { children: any }) => (
     <Box px={2}
@@ -78,7 +83,25 @@ export default function Navbar() {
                                 }
                             />
                         </MenuButton>
-
+                        <MenuList>
+                            <MenuItem>
+                            <Link to="FavoriteMovies">
+                                <Flex alignItems={'center'}>
+                                    <AiFillHeart />
+                                    <Text ml={2}>Favorites</Text>
+                                </Flex>
+                                </Link>
+                            </MenuItem>
+                            <MenuDivider />
+                            <MenuItem>
+                                <Flex alignItems={'center'}>
+                                    
+                                    <FaSignOutAlt />
+                                    <Text ml={2}>Logout</Text>
+                                    
+                                </Flex>
+                            </MenuItem>
+                        </MenuList>
                     </Menu>
                 </Flex>
             </Flex>

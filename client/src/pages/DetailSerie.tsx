@@ -17,23 +17,24 @@ import { BsHeartFill, BsHeart } from 'react-icons/bs';
 import { AiFillCaretRight } from 'react-icons/ai'
 import YouTube from 'react-youtube';
 import { getVideo } from "../api/movieApi";
+import { getOneSERIES } from "../redux/actions/seriesActions";
 
-const DetailMovie = () => {
+const Detailserie = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const [trailer, setTrailer] = useState(null) as any;
     useEffect(() => {
-        const fetchmovie = async () => {
+        const fetchserie = async () => {
             setTrailer(await getVideo(id))
         }
         if (id) {
-            dispatch(getOnemovie(id));
-            fetchmovie()
+            dispatch(getOneSERIES(id));
+            fetchserie()
         }
     }, []);
 
-    const movieData = useSelector((state: any) => state.Onemovie.movieData);
-    console.log(movieData)
+    const serieData = useSelector((state: any) => state.Oneserie.serieData);
+    console.log(serieData)
     const onReady = (e: any) => {
         console.log(e.target);
     };
@@ -43,22 +44,22 @@ const DetailMovie = () => {
             width="100wh"
             height="100vh"
             bg={useColorModeValue('white', 'gray.800')}
-            background={`linear-gradient(0deg, rgba(0,0,0,1), rgba(0, 0, 0, 0.5)),url(https://image.tmdb.org/t/p/original/${movieData.backdrop_path})`}
+            background={`linear-gradient(0deg, rgba(0,0,0,1), rgba(0, 0, 0, 0.5)),url(https://image.tmdb.org/t/p/original/${serieData.backdrop_path})`}
             backgroundSize="cover"
         >
             <Flex m={20} justifyContent='space-between' alignItems='flex-start' flexWrap="wrap" >
                 <Box flex="1 1 30%" m={3}>
-                    <Image src={`https://image.tmdb.org/t/p/original/${movieData.poster_path}`} height="600px" />
+                    <Image src={`https://image.tmdb.org/t/p/original/${serieData.poster_path}`} height="600px" />
                 </Box>
                 <Box flex="2 1 60%" m={3}>
-                    <Text textAlign='left' fontSize="4xl" fontWeight='bold'>{movieData.title}</Text>
+                    <Text textAlign='left' fontSize="4xl" fontWeight='bold'>{serieData.title}</Text>
 
                     <Flex mt={10}>
-                        <CircularProgress mr={5} value={movieData.vote_average * 10} color='green.400'
+                        <CircularProgress mr={5} value={serieData.vote_average * 10} color='green.400'
                             thickness='10px'>
-                            <CircularProgressLabel>{movieData.vote_average}</CircularProgressLabel>
+                            <CircularProgressLabel>{serieData.vote_average}</CircularProgressLabel>
                         </CircularProgress>
-                        {movieData.genre_ids && movieData.genre_ids.map((el: any, i: number) => {
+                        {serieData.genre_ids && serieData.genre_ids.map((el: any, i: number) => {
                             return <Flex
                                 key={i}
                                 backgroundColor="red"
@@ -70,7 +71,7 @@ const DetailMovie = () => {
                             >Drama</Flex>
                         })}
                     </Flex>
-                    <Text mt={20} textAlign='left' fontSize="l">{movieData.overview}</Text>
+                    <Text mt={20} textAlign='left' fontSize="l">{serieData.overview}</Text>
                     <Flex mt={10}>
                         <Flex
                             p={4}
@@ -117,4 +118,4 @@ const DetailMovie = () => {
     )
 }
 
-export default DetailMovie;
+export default Detailserie;

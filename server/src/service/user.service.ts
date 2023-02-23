@@ -26,9 +26,9 @@ const user = await User.findOne({ email }).select('+password');;
   if (!user) {
     return false;
   }
-  console.log(password,user.password)
+
   const isValid = await user.comparePassword(password);
-  console.log(isValid)
+  
   if (!isValid) {
     return false;
   }

@@ -99,7 +99,7 @@ UserSchema.methods.comparePassword = async function (
   candidatePassword: string
 ) {
   const user = this as UserDocument;
-  console.log(user)
+ 
   return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
 };
 
