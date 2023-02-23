@@ -14,13 +14,15 @@ import {
     useColorMode,
     MenuItem,
     MenuDivider,
-    Text
+    Text,
+    Image
 } from '@chakra-ui/react';
 import { FaSignOutAlt } from "react-icons/fa";
 import { AiFillHeart } from "react-icons/ai";
 import { Link as L, Link } from 'react-router-dom'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import streamy from "../images/streamy.png";
 const Links = ['Home', 'Movies','Series'];
 
 const NavLink = ({ children }: { children: any }) => (
@@ -51,7 +53,9 @@ export default function Navbar() {
                     onClick={isOpen ? onClose : onOpen}
                 />
                 <HStack spacing={8} alignItems={'center'}>
-                    <Box>Logo</Box>
+                <Box>
+                    <Image height="12" src={streamy} alt='Streamy Logo' />
+                </Box>
                     <HStack
                         as={'nav'}
                         spacing={4}

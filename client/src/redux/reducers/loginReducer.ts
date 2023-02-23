@@ -6,12 +6,14 @@ import {
   
   interface LoginState {
     loading: boolean;
-    token: string | null;
+    isLoggedIn: boolean | null;
+    token:string | null;
     error: string | null;
   }
   
   const initialState: LoginState = {
     loading: false,
+    isLoggedIn: false,
     token: null,
     error: null,
   };
@@ -31,7 +33,8 @@ import {
         return {
           ...state,
           loading: false,
-          token: action.payload.token,
+          isLoggedIn: true,
+          token: action.payload.accessToken,
           error: null,
         };
       case LOGIN_FAILURE:

@@ -26,7 +26,7 @@ export const login = (email: string, password: string):any => {
           type: LOGIN_SUCCESS,
           payload: { token: data.accessToken },
         });
-        
+        localStorage.setItem('token',data.accessToken)
       } else {
         dispatch({
           type: LOGIN_FAILURE,
