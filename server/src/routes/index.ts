@@ -7,7 +7,7 @@ import axios from "axios";
 import Movies from "../model/movie.model";
 import { filterAllMovies, getAllMovies, getOneMovie } from "../controller/movies.controller";
 import { getAllGenres, getGenresByIds } from "../controller/genre.controller";
-import { addFavorite, getFavoritesByUser, removeFavorite } from "../controller/favorite.controller";
+import { addFavoriteMovie, addFavoriteTVShow, getFavoritesByUser, removeFavorite } from "../controller/favorite.controller";
 import { addRating, getRatingsByUser, getMovieRating } from "../controller/rating.controller";
 import { filtreAndSearch } from "../controller/filtreAndSearch.controller";
 import TVShows from "../model/TVShows.model";
@@ -93,11 +93,13 @@ export default function (app: Express) {
   app.post("/api/SearchTVShows", filterAllSeries);
 
 
-  // Add a movie to favorites
-  app.post("/api/favorites", authenticate, addFavorite);
+  // Add  favorites
+  app.post("/api/addFavoriteMovie", addFavoriteMovie);
+  app.post("/api/addFavoriteTVShow", addFavoriteTVShow);
 
   // Get favorites by user id
-  app.get("/api/favorites/:userId", getFavoritesByUser);
+  app.post("/api/getFavoritesByUser", getFavoritesByUser);
+
 
   // Remove a movie from favorites
   app.delete("/api/favorites", authenticate, removeFavorite);
