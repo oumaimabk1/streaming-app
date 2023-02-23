@@ -1,10 +1,12 @@
 import { SimpleGrid, Center, Button ,Card} from "@chakra-ui/react";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import FilterComponent from "../components/filtermovies";
 import ProductAddToCart from "../components/MovieCard";
 import MovieCard from "../components/MovieCard";
+import { url } from "../redux/actions/apiUrl";
 import { clearMovieData, fetchMOVIEData } from "../redux/actions/moviesActions";
 import { movieTypes } from "../redux/types";
 
@@ -15,6 +17,7 @@ const FavoriteMovies = () => {
   const location = useLocation();
 
   useEffect(() => {
+    const result = axios.get(`${url}`)
     dispatch(clearMovieData());
   }, [location]);
   useEffect(() => {
