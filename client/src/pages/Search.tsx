@@ -11,7 +11,7 @@ export const Search = () => {
             flexDirection="column"
             width="100wh"
             height="100vh"
-            bg="WhiteAlpha 800"
+            bg="Teal 200"
             alignItems="center"
         >
             
