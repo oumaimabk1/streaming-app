@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text,useColorModeValue } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 
 interface FooterProps {
@@ -17,7 +17,7 @@ const Footer = ({ companyName, creators }: FooterProps): ReactElement => (
 
 <Flex align="center" justify="center" flexDirection="column">
 
-<Text color="white" fontSize="sm">
+<Text color={useColorModeValue('gray.800',"whiteAlpha.900")} fontSize="sm">
 &copy; {new Date().getFullYear()} {companyName} - Made with love by {creators.join(', ')}
 </Text>
 </Flex>

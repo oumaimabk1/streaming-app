@@ -5,12 +5,22 @@ import config from "config";
 
 
 // Cette interface définit les propriétés que les documents utilisateur devraient avoir dans la bdd.
-export interface UserDocument extends mongoose.Document {    
-  email: string;
+export interface UserDocument extends mongoose.Document {
   name: string;
+  email: string;
   password: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  cardName: string;
+  cardNumber: string;
+  expiry: string;
+  cvv: string;
+  resetPasswordToken: string | undefined,
+  resetPasswordExpires: Date | undefined
   createdAt: Date;
-  updatedAt: Date;                                    
+  updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
@@ -18,11 +28,48 @@ export interface UserDocument extends mongoose.Document {
 //Définition d'un nouveau schéma de données Mongoose appelé UserSchema.
 const UserSchema = new mongoose.Schema(
   {
-    email: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    password: { type: String, required: true },
+    name: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    password: {
+      type: String,
+      required: true,
+      select: false
+    },
+    address: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
+    state: {
+      type: String,
+    },
+    zip: {
+      type: String,
+    },
+    cardName: {
+      type: String,
+    },
+    cardNumber: {
+      type: String,
+    },
+    expiry: {
+      type: String,
+    },
+    cvv: {
+      type: String,
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
   },
-  { timestamps: true }            
+  { timestamps: true }
 );
 
 
@@ -52,11 +99,10 @@ UserSchema.methods.comparePassword = async function (
   candidatePassword: string
 ) {
   const user = this as UserDocument;
-
+ 
   return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
 };
 
 const User = mongoose.model<UserDocument>("User", UserSchema);
 
 export default User;
-

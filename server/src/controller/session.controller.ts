@@ -10,12 +10,12 @@ import {
 } from "../service/session.service";
 import { sign } from "../utils/jwt.utils";
 import axios from "axios";
-import Genres from "../model/Genre.model";
+import TVShows from "../model/TVShows.model";
+import GenresTVShow from "../model/genreTVShow.model";
 
-export async function createUserSessionHandler(req: Request, res: Response) {
+export async function createUserSessionHandler(req: any, res: Response) {
   // validate the email and password
   const user = await validatePassword(req.body);
-
   if (!user) {
     return res.status(401).send("Invalid username or password");
   }

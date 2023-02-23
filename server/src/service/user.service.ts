@@ -21,18 +21,17 @@ export async function validatePassword({
   email: UserDocument["email"];
   password: string;
 }) {
-  const user = await User.findOne({ email });
+const user = await User.findOne({ email }).select('+password');;
 
   if (!user) {
     return false;
   }
 
   const isValid = await user.comparePassword(password);
-
+  
   if (!isValid) {
     return false;
   }
 
   return omit(user.toJSON(), "password");
 }
-
