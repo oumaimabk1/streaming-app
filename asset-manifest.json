@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/streaming-app/static/css/main.964fdded.css",
+    "main.js": "/streaming-app/static/js/main.4587e3c7.js",
+    "static/js/787.48794ff6.chunk.js": "/streaming-app/static/js/787.48794ff6.chunk.js",
+    "static/media/streamy.png": "/streaming-app/static/media/streamy.701ea12221cb4ec2519c.png",
+    "index.html": "/streaming-app/index.html",
+    "main.964fdded.css.map": "/streaming-app/static/css/main.964fdded.css.map",
+    "main.4587e3c7.js.map": "/streaming-app/static/js/main.4587e3c7.js.map",
+    "787.48794ff6.chunk.js.map": "/streaming-app/static/js/787.48794ff6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.964fdded.css",
+    "static/js/main.4587e3c7.js"
+  ]
+}
