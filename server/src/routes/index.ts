@@ -9,10 +9,9 @@ import { filterAllMovies, getAllMovies, getOneMovie } from "../controller/movies
 import { getAllGenres, getGenresByIds } from "../controller/genre.controller";
 import { addFavoriteMovie, addFavoriteTVShow, getFavoritesByUser, removeFavorite } from "../controller/favorite.controller";
 import { addRating, getRatingsByUser, getMovieRating } from "../controller/rating.controller";
-import { filtreAndSearch } from "../controller/filtreAndSearch.controller";
+
 import TVShows from "../model/TVShows.model";
 import { filterAllSeries, getAllTVShows, getOneTVShow } from "../controller/TVShows.controller";
-import { filtreAndSearchTVShows } from "../controller/filterAndSearchTVShows.controller";
 import { getAllTVShowsGenres, getGenresTVShowsByIds } from "../controller/genreTVShow.controller";
 
 export default function (app: Express) {
@@ -73,8 +72,8 @@ export default function (app: Express) {
   //get genres by Ids
   app.get("/api/getGenresByIds", getGenresByIds);
 
-  //Search movies
-  app.get("/api/filtreAndSearch", filtreAndSearch);
+  //Search //j'ai anulte lemidelware pour le test
+  app.post("/api/searchmovies", filterAllMovies);
 
 
   //get all tvShows
@@ -89,8 +88,8 @@ export default function (app: Express) {
   //get genres TVShows by Ids
   app.get("/api/getGenresTVShowsByIds", getGenresTVShowsByIds);
 
-  //Search TVShows
-  app.post("/api/SearchTVShows", filterAllSeries);
+  //Search TvShows
+  app.post("/api/filterAllSeries", filterAllSeries);
 
 
   // Add  favorites
@@ -100,9 +99,10 @@ export default function (app: Express) {
   // Get favorites by user id
   app.post("/api/getFavoritesByUser", getFavoritesByUser);
 
-
   // Remove a movie from favorites
   app.delete("/api/favorites", authenticate, removeFavorite);
+
+  
 
   // Add a movie rating
   app.post("/api/ratings", authenticate, addRating);
@@ -113,8 +113,7 @@ export default function (app: Express) {
   // Get ratings for a movie
   app.get("/api/ratings/:movieId", authenticate, getMovieRating);
 
-  //Search //j'ai anulte lemidelware pour le test
-  app.post("/api/searchmovies", filterAllMovies);
+
 
 
 

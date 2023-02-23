@@ -1,7 +1,7 @@
 import TVShowsDocument from '../model/TVShows.model';
 import { Request, Response } from 'express';
 import GenresTVShow from '../model/genreTVShow.model';
-import axios from 'axios';
+
 
 export async function getAllTVShows(req: any, res: Response) {
 
