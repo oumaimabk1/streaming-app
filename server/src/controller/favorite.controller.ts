@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Favorite, { FavoriteDocument } from "../model/favorite.model";
 
-export async function addFavorite(req: Request, res: Response) {
+export async function addFavoriteMovie(req: Request, res: Response) {
     try {
         const { user, movie } = req.body;
 
@@ -31,14 +31,44 @@ export async function addFavorite(req: Request, res: Response) {
     }
 }
 
+export async function addFavoriteTVShow(req: Request, res: Response) {
+    try {
+        const { user, tvShow } = req.body;
+
+        const existingFavorite = await Favorite.findOne({ user, tvShow });
+
+        if (existingFavorite) {
+            return res.status(409).json({
+                message: "This TVShow is already in your favorites",
+            });
+        }
+
+        const newFavorite: FavoriteDocument = new Favorite({
+            user,
+            tvShow,
+        });
+
+        await newFavorite.save();
+
+        res.status(201).json({
+            message: "The TVShow has been added to your favorites",
+        });
+    } catch (error: any) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+
+
 export async function getFavoritesByUser(req: Request, res: Response) {
     try {
-        const { userId } = req.params;
+        const { userId } = req.body;
 
         // Récupère les favoris de l'utilisateur spécifié
-        const favorites = await Favorite.find({ user: userId }).populate(
-            "movie"
-        );
+        const favorites = await Favorite.find({ user: userId }).populate([
+            { path: 'movie' },
+            { path: 'tvShow' }
+          ]);
 
         res.json(favorites);
     } catch (error: any) {

@@ -1,11 +1,14 @@
 import mongoose from "mongoose";
 import { UserDocument } from "./user.model";
 import { MovieDocument } from "./movie.model";
+import { TVShowsDocument } from "./TVShows.model";
 
 // Spécifie les propriétés requises pour un document de favori.
 export interface FavoriteDocument extends mongoose.Document {
     user: UserDocument["_id"];
     movie: MovieDocument["_id"];
+    tvShow: TVShowsDocument["_id"];
+    
 }
 
 const FavoriteSchema = new mongoose.Schema(
@@ -15,11 +18,8 @@ const FavoriteSchema = new mongoose.Schema(
             ref: "User",
             required: true,
         },
-        movie: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Movie",
-            required: true,
-        },
+        movie:[],
+        tvShow: [],
     },
     { timestamps: true }
 );
