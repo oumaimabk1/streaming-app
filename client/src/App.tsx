@@ -37,11 +37,11 @@ function App() {
         </>
         :
         <Routes>
-          <Route path="/" element={<RegistrationForm />}></Route>
+          <Route path="/register" element={<RegistrationForm />}></Route>
           <Route path="/login" element={<Login />} ></Route>
           <Route path="/forgotPassword" element={<ForgotPassword />} ></Route>
           <Route path="/ResetPassord/:token" element={<ResetPassord />} ></Route>
-          <Route path="/Home" element={<Home />}></Route>
+          <Route path="/" element={<Home />}></Route>
 
         </Routes>}
 
