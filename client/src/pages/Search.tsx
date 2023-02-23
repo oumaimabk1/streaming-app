@@ -1,4 +1,4 @@
-import { Box, Center, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { HStack } from '@chakra-ui/react';
 import { Input } from '@chakra-ui/react';
 
@@ -14,7 +14,6 @@ export const Search = () => {
             backgroundColor="gray.200"
             alignItems="center"
         >
-            {/* Search */}
             
             <HStack
                 margin="4"

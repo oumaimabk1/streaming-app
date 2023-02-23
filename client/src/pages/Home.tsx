@@ -29,7 +29,7 @@ const Home = () => {
         fontSize="sm"
         justifyItems="center"
       >
-        Discover and enjoy endless movies and TV shows on Streamy! From blockbusters to dramas, we have something for every genre lover. Sign up now to start streaming.
+        Discover and enjoy endless movies and TV shows on Streamy! No need to have a subscription to EVERY streaming platform to have a decent selection, we have ALL the movies and shows. From blockbusters to dramas, we have something for every genre lover. Sign up now to start streaming.
       </Text>
 
       <Flex
