@@ -1,6 +1,7 @@
 import MovieDocument from '../model/movie.model';
 import { Request, Response } from 'express';
-import Genres from '../model/genre.model';
+import Genres from '../model/genremodel';
+
 
 
 
@@ -50,7 +51,7 @@ export async function filterAllMovies(req: any, res: Response) {
         genre_ids  = req.body.genre_ids
     }else{
         const genre = await  Genres.find();
-        genre.forEach(el =>{
+        genre.forEach((el:any) =>{
             genre_ids.push(el.id)
         })
     }

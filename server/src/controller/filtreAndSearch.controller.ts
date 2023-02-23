@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Movies, { MovieDocument } from "../model/movie.model";
-import Genres, { GenreDocument } from "../model/genre.model";
+import Genres, { GenreDocument } from "../model/genremodel";
 
 
 export const filtreAndSearch = async (req: any, res: Response) => {

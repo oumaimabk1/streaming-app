@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Genres, { GenreDocument } from "../model/genre.model";
+import Genres, { GenreDocument } from "../model/genremodel";
 import Movies, { MovieDocument } from "../model/movie.model";
 
 
