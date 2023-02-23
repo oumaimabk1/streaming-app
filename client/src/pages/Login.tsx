@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
     Flex,
     Heading,
@@ -14,41 +15,54 @@ import {
     FormHelperText,
     Link,
     InputRightElement,
-    CircularProgress
+    CircularProgress,
+    useColorModeValue,
+    useToast
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { Link as L } from "react-router-dom";
+import { login } from "../redux/actions/loginActions";
+import { useNavigate } from 'react-router-dom';
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-const Login = (props: any) => {
+const Login = () => {
+    const loading: any = useSelector((state: any): Boolean => state.login.loading);
+    const error = useSelector((state: any) => state.login.error);
+    const toast = useToast()
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
     const handleShowClick = () => setShowPassword(!showPassword);
-    const [values, setValues] = useState({
-        email: "",
-        password: ""
-    });
-    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        setLoading(true);
-        //your client side validation here
-        //after success validation
-        const userData = {
-            email: values.email,
-            password: values.password,
-        };
-        props.loginUser(userData, props.history);
-    }
-    const handleChange = (e: any) => {
-        e.persist();
-        setValues((values: any) => ({
-            ...values,
-            [e.target.name]: e.target.value
-        }));
+        
+        try {
+            await dispatch(login(email, password));
+            toast({
+              title: 'You are logged in.',
+              description: "Welcome.",
+              status: 'success',
+              duration: 3000,
+              isClosable: true,
+              onCloseComplete: () => {
+                navigate('/Home'); // Navigate to the login page after the toast is closed
+              },
+            })
+        } catch (error) {
+            console.error(error);
+            toast({
+              title: 'Something went wrong please retry.',
+              status: 'error',
+              duration: 5000,
+              isClosable: true,
+            })
+        }
     };
 
     return (
@@ -56,7 +70,7 @@ const Login = (props: any) => {
             flexDirection="column"
             width="100wh"
             height="100vh"
-            backgroundColor="gray.200"
+            bg={useColorModeValue('white', 'gray.800')}
             justifyContent="center"
             alignItems="center"
         >
@@ -69,11 +83,11 @@ const Login = (props: any) => {
                 <Avatar bg="teal.500" />
                 <Heading color="teal.400">Welcome</Heading>
                 <Box minW={{ base: "90%", md: "468px" }}>
-                    <form>
+                    <form >
                         <Stack
                             spacing={4}
                             p="1rem"
-                            backgroundColor="whiteAlpha.900"
+                            backgroundColor={useColorModeValue("whiteAlpha.900", 'gray.800')}
                             boxShadow="md"
                         >
                             <FormControl>
@@ -82,9 +96,11 @@ const Login = (props: any) => {
                                         pointerEvents="none"
                                         children={<CFaUserAlt color="gray.300" />}
                                     />
-                                    <Input type="email" placeholder="email address"
-                                        onChange={handleChange}
-                                        value={values.email} />
+                                    <Input type="email"
+                                        id="email"
+                                        value={email}
+                                        placeholder='Email'
+                                        onChange={(e) => setEmail(e.target.value)} />
                                 </InputGroup>
                             </FormControl>
                             <FormControl>
@@ -97,8 +113,9 @@ const Login = (props: any) => {
                                     <Input
                                         type={showPassword ? "text" : "password"}
                                         placeholder="Password"
-                                        onChange={handleChange}
-                                        value={values.password}
+                                        id="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
                                     <InputRightElement width="4.5rem">
                                         <Button h="1.75rem" size="sm" onClick={handleShowClick}>
@@ -124,6 +141,7 @@ const Login = (props: any) => {
                             >
                                 Login
                                 {loading && (<CircularProgress size={30} color='secondary' />)}
+
                             </Button>
                         </Stack>
                     </form>
@@ -145,3 +163,4 @@ const Login = (props: any) => {
 };
 
 export default Login;
+

@@ -1,7 +1,8 @@
-import { Avatar, Box, CircularProgress, CircularProgressLabel, Flex, Heading, Stack ,Link} from '@chakra-ui/react';
+import { Avatar, Box, CircularProgress, CircularProgressLabel, Flex, Heading, Stack ,Link,useColorModeValue} from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-//import { useHistory } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom';
 import { setFormData, submitForm } from '../redux/actions/formActions';
 import { Link as L } from "react-router-dom";
 import { Step1 } from '../components/Step1';
@@ -10,8 +11,8 @@ import { Step3 } from '../components/Step3';
 
 const RegistrationForm = () => {
     const dispatch = useDispatch();
-    //const history = useHistory();
-
+    const toast = useToast()
+const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -22,8 +23,9 @@ const RegistrationForm = () => {
     };
 
     const handleNext = () => {
-        console.log(formData)
+    
         setStep((prevStep) => prevStep + 1);
+        
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,14 +34,30 @@ const RegistrationForm = () => {
         dispatch(setFormData(updatedFormData));
     };
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      
         setIsLoading(true);
         event.preventDefault();
         try {
-            await dispatch(submitForm(formData));;
-            console.log('Form submitted successfully!');
-        } catch (error) {
-            console.error(error);
-        }
+          await dispatch(submitForm(formData));;
+          toast({
+            title: 'Account created.',
+            description: "We've created your account for you.",
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+            onCloseComplete: () => {
+              navigate('/login'); // Navigate to the login page after the toast is closed
+            },
+          })
+      } catch (error) {
+          console.error(error);
+          toast({
+            title: 'Something went wrong please retry.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          })
+      }
 
         setIsLoading(false);
         //history.push('/success');
@@ -50,7 +68,7 @@ const RegistrationForm = () => {
         flexDirection="column"
         width="100wh"
         height="100vh"
-        backgroundColor="gray.200"
+        backgroundColor={useColorModeValue("gray.200", 'gray.800')}
         justifyContent="center"
         alignItems="center"
       >
@@ -79,12 +97,14 @@ const RegistrationForm = () => {
       </Stack>
       <Box>
         already signed up?{" "}
-        <L to='/login' >
+        
           <Link color="teal.500">
+          <L to='/login' >
           Login
+          </L>
           </Link>
           
-        </L>
+        
       </Box>
     </Flex>
     );

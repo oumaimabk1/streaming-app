@@ -1,28 +1,27 @@
 import {
   Flex,
-  Circle,
   Box,
   Image,
-  Badge,
   useColorModeValue,
-  Icon,
-  chakra,
-  Tooltip,
+  CircularProgress,
+  CircularProgressLabel
 } from '@chakra-ui/react';
+import { FaYoutube } from 'react-icons/fa';
 import { useState } from 'react';
-import { BsHeart, BsHeartFill, BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
-import { FiShoppingCart } from 'react-icons/fi';
+import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 import { movieTypes } from '../redux/types';
-
+import { useNavigate } from 'react-router-dom';
+interface MovieCardProps {
+  data: movieTypes;
+  click : (e:any)=> void;
+}
 interface RatingProps {
   rating: number;
-  numReviews: number;
 }
 
-/* function Rating({ rating, numReviews }: RatingProps) {
-
+function Rating({ rating }: RatingProps) {
   return (
-    <Flex alignItems="center">
+    <Box display="flex" alignItems="center">
       {Array(5)
         .fill('')
         .map((_, i) => {
@@ -37,93 +36,98 @@ interface RatingProps {
             );
           }
           if (roundedRating - i === 0.5) {
-            return <BsratingStarHalf key={i} style={{ marginLeft: '1' }} />;
+            return <BsStarHalf key={i} style={{ marginLeft: '1' }} />;
           }
           return <BsStar key={i} style={{ marginLeft: '1' }} />;
         })}
-      <Box as="span" ml="2" color="gray.600" fontSize="sm">
-        {numReviews} review{numReviews > 1 && 's'}
-      </Box>
-    </Flex>
+
+    </Box>
   );
-} */
-interface MovieCardProps {
-  data: movieTypes;
 }
 
-function MovieCard( { data }: MovieCardProps) {
+function MovieCard({ data ,click}: MovieCardProps) {
+ 
   const [liked, setLiked] = useState(false);
+
   return (
-    <Flex p={50} w="full" alignItems="center" justifyContent="center">
-      <Box
-        bg={useColorModeValue('white', 'gray.800')}
-        maxW="sm"
-        borderWidth="1px"
-        rounded="lg"
-        shadow="lg"
-        position="relative">
-        {data.adult && (
-          <Circle
-            size="10px"
-            position="absolute"
-            top={2}
-            right={2}
-            bg="red.200"
-          />
-        )}
+    <Box
+      bg={useColorModeValue('white', 'gray.800')}
+      maxW="sm"
+      borderWidth="1px"
+      rounded="lg"
+      shadow="lg"
+      m={1}
+      position="relative"
+      transition="all 0.3s ease-in-out"
+      _hover={{ filter: "brightness(0.5)" }}
+    >
+      <CircularProgress value={data.vote_average * 10} color='green.400' position="absolute"
+        bottom={65}
+        left={2}
+        thickness='4px'>
+        <CircularProgressLabel>{data.vote_average}</CircularProgressLabel>
+      </CircularProgress>
+      <Image
+        src={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
+        alt={`Picture of ${data.title || data.name}`}
+        roundedTop="lg"
+      />
 
-        <Image
-          src={`https://image.tmdb.org/t/p/original/xDMIl84Qo5Tsu62c9DGWhmPI67A.jpg${data.poster_path}`}
-          alt={`Picture of ${data.title}`}
-          roundedTop="lg"
-        />
-
-        <Box p="6">
-          {/* <Flex alignItems="baseline">
-            {data.isNew && (
-              <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
-                New
-              </Badge>
-            )}
-          </Flex> */}
-          <Flex mt="1" justifyContent="space-between" alignContent="center">
-            <Box
-              fontSize="2xl"
-              fontWeight="semibold"
-              as="h4"
-              lineHeight="tight"
-              isTruncated>
-              {data.release_date}
-            </Box>
-            <Tooltip
-              label="Add to cart"
-              bg="white"
-              placement={'top'}
-              color={'gray.800'}
-              fontSize={'1.2em'}>
-              <chakra.a href={'#'} display={'flex'}>
-                <Icon as={FiShoppingCart} h={7} w={7} alignSelf={'center'} />
-              </chakra.a>
-            </Tooltip>
-          </Flex>
-
+      <Box mt="6" >
+        <Flex mt="1" justifyContent="space-between" alignContent="center">
+          <Box
+            p={4}
+            fontSize="2xl"
+            fontWeight="semibold"
+            as="h4"
+            lineHeight="tight"
+            isTruncated>
+            {data.title}
+          </Box>
           <Flex
             p={4}
             alignItems="center"
             justifyContent={'space-between'}
             roundedBottom={'sm'}
-            borderLeft={'1px'}
             cursor="pointer"
             onClick={() => setLiked(!liked)}>
-            {liked ? (
+            {/* {liked ? (
               <BsHeartFill fill="red" fontSize={'24px'} />
             ) : (
               <BsHeart fontSize={'24px'} />
-            )}
+            )} */}
           </Flex>
+        </Flex>
+      </Box>
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        w="100%"
+        h="100%"
+        opacity={0}
+        transition="opacity 0.3s ease-in-out"
+        _hover={{ opacity: 1 }}
+        cursor="pointer"
+      >
+        <Box
+          bgGradient="linear(to-b, transparent, black)"
+          p={4}
+          w="100%"
+          h="100%"
+          textAlign="center"
+          color="white"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          onClick={()=>click(data.id)}
+        >
+        
+        <FaYoutube size={50} color="red" />
         </Box>
       </Box>
-    </Flex>
+    </Box>
+
   );
 }
 
