@@ -8,7 +8,7 @@ import { findSessions } from '../service/session.service';
 
   // Get token from request header
   const token = req.header('x-auth-token');
-
+  console.log(token)
    // Check that token is provided
   if (!token) {
     return res.status(403).send("Access denied. No token provided");
@@ -27,6 +27,7 @@ import { findSessions } from '../service/session.service';
     }
     // Assign user data to request object
     req.user = { ...decoded, session };
+    console.log(req.user)
     // Call next function
     next();
   } catch (ex) {

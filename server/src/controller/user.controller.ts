@@ -114,3 +114,6 @@ export async function updatePassword(req: Request, res: Response) {
   res.send({ sucess: true });
 
 }
+export async function me(req: any, res: Response) {
+   res.send(req.user);
+}
