@@ -6,7 +6,7 @@ const { ObjectId } = mongoose.Types;
 
 export async function addFavorite(req: Request, res: Response) {
     try {
-        const { user, movie } = req.body;
+        const { user, movie  } = req.body;
 
         // Vérifie si l'utilisateur a déjà ajouté ce film à ses favoris
         const existingFavorite = await Favorite.findOne({ user, movie });
