@@ -1,6 +1,6 @@
 
 import { Request, Response } from 'express';
-import Genres from '../model/genre.model';
+import Genres from '../model/genremodel';
 
 export async function getAllGenres(req: Request, res: Response) {
 try {

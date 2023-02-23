@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
-    "dev": "nodemon --config nodemon.json app.ts",
-    "prod":"nodemon app.ts"
+    "dev": "nodemon --config nodemon.json src/app.ts",
+    "prod":"nodemon ./src/app.ts"
   },
   "author": "",
   "license": "ISC",

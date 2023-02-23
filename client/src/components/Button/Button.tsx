@@ -4,7 +4,7 @@ type ButtonProps = {
     btnText: string
     isActive?: boolean
  }
-const Button = ({btnText, isActive }: ButtonProps ) => {
+const Buttons = ({btnText, isActive }: ButtonProps ) => {
 
     return (
         <ChButton borderRadius="none" height="8" width="80%" margin="4" bgColor="teal" size="lg" colorScheme='black' variant={isActive ? "solid" : "outline"}>{btnText}</ChButton>
@@ -12,7 +12,7 @@ const Button = ({btnText, isActive }: ButtonProps ) => {
 };
 
 
-export default Button;
+export default Buttons;
 
 
 // variant={isActive ? "solid" : "ghost"}
