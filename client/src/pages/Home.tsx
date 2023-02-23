@@ -32,7 +32,7 @@ const Home = () => {
         textAlign="left"
         color="white"
         margin={{ base: '6', md: '9', lg: '10', xl: '10'}}
-        fontSize="sm"
+        fontSize={{ base: 'xs', md: 'sm', lg: 'l', xl: 'xl'}}
         justifyItems="center"
       >
         Discover and enjoy endless movies and TV shows on Streamy! From blockbusters to dramas, we have something for every genre lover. Sign up now to start streaming.

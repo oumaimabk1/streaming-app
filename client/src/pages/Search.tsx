@@ -11,7 +11,7 @@ export const Search = () => {
             flexDirection="column"
             width="100wh"
             height="100vh"
-            backgroundColor="gray.200"
+            bg="WhiteAlpha 800"
             alignItems="center"
         >
             
@@ -19,8 +19,10 @@ export const Search = () => {
                 margin="4"
             >
                 <Button isActive={true} btnText="Movies"  />
-                <Button isActive={false} btnText="TV"  />
-                <Button isActive={false} btnText="People"  />
+                <Button isActive={true} btnText="TV"  />
+                <Button isActive={true} btnText="Actors"  />
+                <Button isActive={true} btnText="Directors"  />
+                <Button isActive={true} btnText="Genres"  />
             </HStack>
 
             <Input

@@ -29,7 +29,7 @@ const NavLink = ({ children }: { children: ReactNode }, key: string) => (
         rounded={'md'}
         _hover={{
             textDecoration: 'none',
-            bg: useColorModeValue('gray.200', 'gray.700'),
+            bg: useColorModeValue('Gray 200', '#1B202B'),
         }}
         >
         {children}
@@ -41,7 +41,7 @@ export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { colorMode, toggleColorMode } = useColorMode();
     return (
-        <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+        <Box bg={useColorModeValue('Gray 200', '#1B202B')} px={4}>
             <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
                 <IconButton
                     size={'md'}
