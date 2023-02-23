@@ -1,18 +1,11 @@
-import { Stack,
-   HStack,
-   VStack,
-   useColorModeValue,
-   Button,
-   Heading,
-   Center,
-   Text,
-   Box,
-   Flex } from '@chakra-ui/react';
+import { Stack, HStack, VStack, useColorModeValue, Button, Heading, Center, Text, Box, Flex } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react'; // separate import statement for useEffect
 import Footer from "../Footer/footer";
 
 
 const Home = () => {
+  
   const navigate= useNavigate()
   return (
     <Flex
@@ -81,7 +74,7 @@ const Home = () => {
           </VStack>
         </Center>
 
-        <Box   position="absolute" bottom="0" width="100%" marginTop="6">
+        <Box position="absolute" bottom="0" width="100%" marginTop="6">
           <Footer companyName="Streamy" creators={["Oumaima", "Zineb", "Nico"]} />
         </Box>
       </Stack>

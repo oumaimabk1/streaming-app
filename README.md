@@ -16,3 +16,9 @@ With a clever combination of:
 - [Express](https://expressjs.com/)
 
 We had Nico as a front-end developer, and Oumaima and Zineb as back-end developers.
+
+## What does our streaing platform have?
+
+    • A login and sign up page
+    • A search page, with a few filters next to the search bar that narrow down your searches
+    • A movies page
