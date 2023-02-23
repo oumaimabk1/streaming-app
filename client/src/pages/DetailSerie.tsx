@@ -18,6 +18,7 @@ import { AiFillCaretRight } from 'react-icons/ai'
 import YouTube from 'react-youtube';
 import { getTvShow, getVideo } from "../api/movieApi";
 import { getOneSERIES } from "../redux/actions/seriesActions";
+import { url } from "../redux/actions/apiUrl";
 
 const Detailserie = () => {
     const dispatch = useDispatch();
@@ -32,9 +33,21 @@ const Detailserie = () => {
             fetchserie()
         }
     }, [id,dispatch]);
-
+   
     const serieData = useSelector((state: any) => state.Oneserie.serieData);
     console.log(serieData)
+    const handleClick = async ()=>{
+        let user =localStorage.getItem('userId');
+        const response = await fetch(`${url}api/addFavoriteTVShow`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user,movie : serieData._id}),
+          });
+          console.log(response)
+          if(response){
+            setLiked(!liked)
+          }
+    }
     const onReady = (e: any) => {
         console.log(e.target);
     };
@@ -80,7 +93,7 @@ const Detailserie = () => {
                             justifyContent={'space-between'}
                             roundedBottom={'sm'}
                             cursor="pointer"
-                            onClick={() => setLiked(!liked)}>
+                            onClick={handleClick}>
                             {liked ? (
                                 <BsHeartFill fill="red" fontSize={'24px'} />
                             ) : (
