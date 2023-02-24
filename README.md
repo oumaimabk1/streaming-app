@@ -22,3 +22,6 @@ We had Nico as a front-end developer, and Oumaima and Zineb as back-end develope
     • A login and sign up page
     • A search page, with a few filters next to the search bar that narrow down your searches
     • A movies page
+    • A shows page
+    • A reset password
+    •A favorites page
